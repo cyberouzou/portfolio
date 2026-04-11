@@ -1,241 +1,2809 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEM.SYS — Aksil Alem</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;700&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALEM.SYS — Aksil Alem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & VARIABLES GLOBALES
+   ─────────────────────────────────────────────────────────────
+   Box-model universel pour un dimensionnement prévisible.
+   Toutes les couleurs, espaces et polices sont centralisés
+   dans :root pour faciliter la maintenance et la cohérence.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <style>
-        /* VARIABLES CSS : Centralisation des couleurs pour faciliter les changements.
-           Le vert #39FF14 donne cet aspect "vieux moniteur" ultra-moderne.
-        */
-        :root {
-            --green:   #39FF14;
-            --bg:      #060608;
-            --bg1:     #0d0d10;
-            --border:  rgba(57,255,20,0.12);
-            --text:    #c8cfd8;
-            --mono:    'IBM Plex Mono', monospace;
-            --sidebar: 260px;
-        }
+:root {
+  /* Palette principale */
+  --green:    #39FF14;
+  --green2:   #00ff88;
+  --green-dim: rgba(57,255,20,0.08);
+  --amber:    #FFB800;
+  --red:      #FF3E3E;
+  --blue:     #00CFFF;
+  --purple:   #b87dff;
 
-        /* RESET de base pour enlever les marges par défaut des navigateurs */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* Fonds */
+  --bg:   #050507;
+  --bg1:  #0a0a0e;
+  --bg2:  #0f0f14;
+  --bg3:  #141419;
 
-        body {
-            font-family: var(--mono);
-            background: var(--bg);
-            color: var(--text);
-            cursor: none; /* Cache le curseur standard pour afficher le custom cursor */
-            overflow-x: hidden;
-        }
+  /* Bordures */
+  --border:  rgba(57,255,20,0.10);
+  --border2: rgba(57,255,20,0.20);
+  --border3: rgba(57,255,20,0.35);
 
-        /* ── CUSTOM CURSOR ── 
-           L'anneau et le point central qui suivent la souris via JavaScript.
-        */
-        #cursor {
-            position: fixed; width: 10px; height: 10px; background: var(--green);
-            border-radius: 50%; pointer-events: none; z-index: 99999;
-            transform: translate(-50%, -50%);
-        }
-        #cursor-ring {
-            position: fixed; width: 30px; height: 30px;
-            border: 1px solid rgba(57,255,20,0.4); border-radius: 50%;
-            pointer-events: none; z-index: 99998; transform: translate(-50%, -50%);
-            transition: transform 0.15s ease-out; /* Effet de retard pour la fluidité */
-        }
+  /* Texte */
+  --text:  #c4ccd6;
+  --text2: #626b78;
+  --text3: #363d49;
 
-        /* ── EFFET DE LIGNES DE BALAYAGE (SCANLINES) ── 
-           Crée les petites lignes horizontales typiques des écrans CRT.
-        */
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 4px);
-            pointer-events: none; z-index: 9000; opacity: 0.3;
-        }
+  /* Typographie */
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
 
-        /* ── EFFET DE GRAIN (NOISE) ── 
-           Un léger bruit visuel animé pour éviter d'avoir des noirs trop "plats".
-        */
-        body::after {
-            content: ''; position: fixed; inset: -50%; width: 200%; height: 200%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.02; pointer-events: none; z-index: 8999; animation: grain 0.8s steps(1) infinite;
-        }
-        @keyframes grain {
-            0%, 100% { transform:translate(0,0) }
-            10% { transform:translate(-2%,-1%) }
-        }
+  /* Layout */
+  --sidebar: 260px;
 
-        /* ── SIDEBAR ── 
-           Fixée à gauche, elle contient la navigation et les informations d'identité.
-        */
-        .sidebar {
-            position: fixed; top: 0; left: 0; width: var(--sidebar); height: 100vh;
-            background: var(--bg1); border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; z-index: 500;
-        }
+  /* Transitions */
+  --t-fast: 0.18s;
+  --t-med:  0.32s;
+  --t-slow: 0.56s;
+}
 
-        /* Animation de la ligne verticale lumineuse sur le bord de la sidebar */
-        .sidebar::after {
-            content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%;
-            background: linear-gradient(180deg, transparent, var(--green), transparent);
-            animation: sideline 4s infinite;
-        }
-        @keyframes sideline { 0%,100%{opacity:0.2} 50%{opacity:0.6} }
+html { scroll-behavior: smooth; }
 
-        /* Style des liens de navigation */
-        .nav-item {
-            display: flex; align-items: center; gap: 10px; padding: 12px 24px;
-            color: #6b7280; text-decoration: none; font-size: 0.75rem;
-            transition: 0.2s; border-left: 2px solid transparent;
-        }
-        .nav-item:hover, .nav-item.active {
-            color: var(--green); background: rgba(57,255,20,0.04);
-            border-left-color: var(--green);
-        }
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
 
-        /* ── MAIN CONTENT ── */
-        .main { margin-left: var(--sidebar); flex: 1; }
+/* ── CURSEUR PERSONNALISÉ ──────────────────────────────────────
+   Deux éléments superposés :
+     #cursor      → point plein qui suit la souris exactement
+     #cursor-ring → anneau avec inertie (lerp en JS)
+   mix-blend-mode: screen → le curseur "brille" sur n'importe
+   quelle couleur de fond en mode additif.
+   Sur mobile, cursor:none est ignoré → pas d'impact UX.
+   ─────────────────────────────────────────────────────────────── */
+#cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width var(--t-fast), height var(--t-fast), background var(--t-fast);
+  mix-blend-mode: screen;
+}
+#cursor-ring {
+  position: fixed;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(57,255,20,0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width var(--t-med), height var(--t-med), border-color var(--t-med);
+}
+body.cursor-hover #cursor       { width: 5px; height: 5px; }
+body.cursor-hover #cursor-ring  { width: 42px; height: 42px; border-color: var(--green); }
 
-        /* ── HERO SECTION ── */
-        #home {
-            min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; padding: 80px;
-        }
+/* ── GRILLE DE FOND ANIMÉE ── */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%,100% { opacity: 0.5; }
+  50%      { opacity: 1.0; }
+}
 
-        /* Effet Glitch sur le nom */
-        .hero-name {
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; color: #fff;
-            position: relative; display: inline-block; letter-spacing: -2px;
-        }
-        /* Les pseudo-éléments créent des copies du texte pour les décaler lors du glitch */
-        .hero-name::before, .hero-name::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; opacity: 0.8;
-        }
-        .hero-name::before {
-            color: var(--green); transform: translateX(-2px);
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); /* Coupe le haut du texte */
-            animation: glitch 3s infinite linear alternate-reverse;
-        }
-        @keyframes glitch {
-            0%, 80% { opacity: 0; }
-            85% { opacity: 1; transform: translate(-4px, 2px); }
-            90% { opacity: 0; }
-        }
+/* ── LIGNES DE SCAN ────────────────────────────────────────────
+   Pseudo-élément ::before sur body — repeating-linear-gradient
+   simule l'entrelacement CRT des anciens moniteurs.
+   pointer-events: none → n'intercepte pas les clics/survols.
+   z-index 9000 → au-dessus de tout le contenu mais en dessous
+   du curseur (z-index 99998/99999).
+   ─────────────────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.25;
+}
 
-        /* Boutons avec effet néon au survol */
-        .hero-btn.primary {
-            background: var(--green); color: #000; padding: 12px 24px;
-            text-decoration: none; font-weight: 700; font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .hero-btn.primary:hover {
-            background: #fff; box-shadow: 0 0 20px var(--green);
-        }
+/* ── GRAIN DE BRUIT ────────────────────────────────────────────
+   SVG feTurbulence inline en data-URI appliqué sur un pseudo-
+   élément ::after de grande taille (200%×200%) qui se déplace
+   frame par frame via @keyframes grain pour simuler du grain
+   analogique. Opacité très faible (0.018) pour rester subtil.
+   ─────────────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.018;
+  pointer-events: none;
+  z-index: 8999;
+  animation: grain 0.9s steps(1) infinite;
+}
+@keyframes grain {
+  0%,100%{transform:translate(0,0)}  10%{transform:translate(-3%,-5%)}
+  20%{transform:translate(4%,2%)}    30%{transform:translate(-2%,6%)}
+  40%{transform:translate(5%,-3%)}   50%{transform:translate(-4%,4%)}
+  60%{transform:translate(2%,-6%)}   70%{transform:translate(-5%,3%)}
+  80%{transform:translate(3%,5%)}    90%{transform:translate(-1%,-2%)}
+}
 
-        /* Responsive : Mobile */
-        @media (max-width: 900px) {
-            .sidebar { transform: translateX(-100%); } /* Cache la sidebar sur mobile */
-            .main { margin-left: 0; }
-        }
-    </style>
+/* ── LUEUR D'AMBIANCE EN FOND ── */
+.ambient-glow {
+  position: fixed;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(57,255,20,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  top: -200px; left: calc(var(--sidebar) - 100px);
+  animation: ambientDrift 12s ease-in-out infinite;
+}
+@keyframes ambientDrift {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  33%     { transform: translate(80px, 60px) scale(1.1); }
+  66%     { transform: translate(-40px, 100px) scale(0.95); }
+}
+
+/* ============================================================
+   LAYOUT — SIDEBAR + MAIN
+   ─────────────────────────────────────────────────────────────
+   Flexbox horizontal : sidebar fixe (260px) + main fluide.
+   Sur mobile (< 900px) : sidebar cachée par défaut,
+   main occupe toute la largeur (margin-left: 0).
+   ============================================================ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── BARRE LATÉRALE ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar);
+  height: 100vh;
+  background: rgba(10,10,14,0.97);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 500;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Ligne lumineuse animée sur la bordure droite */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent 0%, var(--green) 50%, transparent 100%);
+  opacity: 0;
+  animation: sidelineScroll 5s ease-in-out infinite;
+}
+@keyframes sidelineScroll {
+  0%   { opacity: 0; transform: translateY(-100%); }
+  20%  { opacity: 0.6; }
+  80%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(100%); }
+}
+
+/* Logo sidebar */
+.sidebar-logo {
+  padding: 28px 22px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo .sys-label {
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  color: var(--green);
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.sidebar-logo .name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.sidebar-logo .role {
+  font-size: 0.68rem;
+  color: var(--text2);
+  margin-top: 3px;
+  font-weight: 300;
+}
+
+/* Indicateur de statut */
+.sidebar-status {
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.62rem;
+  color: var(--text2);
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  flex-shrink: 0;
+  animation: pulseDot 2.5s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+  50%     { opacity: 0.4; box-shadow: 0 0 2px var(--green); }
+}
+
+/* Arbre de navigation */
+.nav-tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+.nav-tree::-webkit-scrollbar { width: 2px; }
+.nav-tree::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 1px; }
+
+.nav-section-label {
+  padding: 2px 22px 8px;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: all var(--t-fast);
+  position: relative;
+  border-left: 2px solid transparent;
+}
+.nav-item:hover, .nav-item.active {
+  color: var(--green);
+  background: var(--green-dim);
+  border-left-color: var(--green);
+}
+/* Indicateur actif avec lueur */
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+.nav-icon {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  width: 13px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: opacity var(--t-fast);
+}
+.nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
+.nav-count {
+  margin-left: auto;
+  font-size: 0.55rem;
+  color: var(--text3);
+  background: var(--bg2);
+  padding: 1px 5px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+}
+
+/* Bas de la sidebar : horloge + langue */
+.sidebar-bottom {
+  padding: 14px 22px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-bottom .clock {
+  font-size: 0.78rem;
+  color: var(--green);
+  font-weight: 500;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.sidebar-bottom .date-str {
+  font-size: 0.58rem;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.lang-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 10px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: none;
+  color: var(--text2);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all var(--t-fast);
+  width: 100%;
+}
+.lang-toggle-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-dim);
+}
+.lang-flag { display: flex; align-items: center; }
+
+/* ── CONTENU PRINCIPAL ── */
+.main {
+  margin-left: var(--sidebar);
+  flex: 1;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── BASE DES SECTIONS ── */
+.section {
+  min-height: 100vh;
+  padding: 80px 64px 80px 72px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Filigrane de section en fond */
+.section-watermark {
+  position: absolute;
+  bottom: -30px; right: -20px;
+  font-size: clamp(100px, 16vw, 180px);
+  font-weight: 700;
+  color: rgba(57,255,20,0.02);
+  letter-spacing: -8px;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  z-index: 0;
+}
+
+/* Eyebrow de section */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 44px;
+  position: relative;
+  z-index: 1;
+}
+.section-eyebrow .idx {
+  font-size: 0.58rem;
+  color: var(--green);
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+.section-eyebrow::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--border2), transparent);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 1;
+}
+.section-title .accent { color: var(--green); }
+
+/* ============================================================
+   ANIMATIONS D'ENTRÉE DE SECTION
+   Animation différente selon la direction de scroll
+   ============================================================ */
+
+/* Révélation générale (fade + translateY) */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity  var(--t-slow) cubic-bezier(0.25,0.8,0.25,1),
+    transform var(--t-slow) cubic-bezier(0.25,0.8,0.25,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Variantes d'animation */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity var(--t-slow) ease, transform var(--t-slow) ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity var(--t-slow) ease, transform var(--t-slow) ease;
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity var(--t-slow) ease, transform var(--t-slow) ease;
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* Délais en cascade pour les enfants */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--t-slow) ease, transform var(--t-slow) ease;
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.40s; }
+.reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay:0.48s; }
+.reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay:0.56s; }
+.reveal-stagger.visible > *:nth-child(n+9) { opacity:1; transform:none; transition-delay:0.60s; }
+
+/* Ligne de progression en haut de section lors de l'entrée */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, var(--green), transparent);
+  z-index: 10;
+  transition: width 0.8s cubic-bezier(0.25,0.8,0.25,1);
+}
+.section.section-entered::before { width: 100%; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 64px 80px 72px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation d'entrée du hero : cascade initiale */
+.hero-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  animation: heroFadeIn 0.6s ease 0.1s both;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.t-dot { width: 10px; height: 10px; border-radius: 50%; }
+.t-dot.red   { background: #ff5f57; }
+.t-dot.amber { background: #ffbd2e; }
+.t-dot.green { background: #27c93f; }
+.t-title {
+  font-size: 0.62rem;
+  color: var(--text2);
+  letter-spacing: 2px;
+  margin-left: 8px;
+}
+
+.hero-prompt {
+  font-size: 0.78rem;
+  color: var(--green);
+  margin-bottom: 8px;
+  opacity: 0.65;
+  animation: heroFadeIn 0.6s ease 0.2s both;
+}
+.hero-prompt::before { content: '~/portfolio $ '; color: var(--text2); }
+
+/* Nom avec glitch */
+.hero-name {
+  font-size: clamp(2.8rem, 8vw, 6.8rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -3px;
+  line-height: 0.95;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+  animation: heroFadeIn 0.7s ease 0.3s both;
+}
+.hero-name::before, .hero-name::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+.hero-name::before {
+  color: var(--green);
+  clip-path: polygon(0 18%, 100% 18%, 100% 36%, 0 36%);
+  transform: translateX(-3px);
+  animation: glitchA 4s infinite steps(1);
+}
+.hero-name::after {
+  color: var(--blue);
+  clip-path: polygon(0 62%, 100% 62%, 100% 76%, 0 76%);
+  transform: translateX(3px);
+  animation: glitchB 4.3s infinite steps(1);
+}
+@keyframes glitchA {
+  0%,87%,100% { opacity:0; transform:translateX(-3px); }
+  88% { opacity:1; transform:translateX(-6px) skewX(-4deg); }
+  90% { opacity:0; }
+  92% { opacity:1; transform:translateX(-2px); }
+  94% { opacity:0; }
+}
+@keyframes glitchB {
+  0%,82%,100% { opacity:0; transform:translateX(3px); }
+  84% { opacity:1; transform:translateX(7px) skewX(3deg); }
+  86% { opacity:0; }
+  89% { opacity:1; transform:translateX(2px); }
+  91% { opacity:0; }
+}
+
+.hero-subtitle {
+  font-size: 0.85rem;
+  color: var(--text2);
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 18px;
+  margin-bottom: 44px;
+  animation: heroFadeIn 0.7s ease 0.45s both;
+}
+.hero-subtitle .hi { color: var(--green); }
+
+/* Stats hero */
+.hero-stats {
+  display: flex;
+  gap: 0;
+  margin-bottom: 44px;
+  animation: heroFadeIn 0.7s ease 0.55s both;
+}
+.h-stat {
+  padding: 18px 24px;
+  border: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  transition: border-color var(--t-fast), background var(--t-fast);
+  overflow: hidden;
+}
+.h-stat + .h-stat { margin-left: -1px; }
+.h-stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--green-dim);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.h-stat:hover { border-color: var(--green); z-index: 1; }
+.h-stat:hover::before { opacity: 1; }
+.h-stat .n {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+  line-height: 1;
+  position: relative;
+}
+.h-stat .l {
+  font-size: 0.58rem;
+  color: var(--text2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  display: block;
+  position: relative;
+}
+
+/* Boutons hero */
+.hero-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: heroFadeIn 0.7s ease 0.65s both;
+}
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all var(--t-fast);
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+}
+.hero-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.hero-btn:hover::before { transform: translateX(0); }
+
+.hero-btn.primary {
+  background: var(--green);
+  color: #000;
+  font-weight: 700;
+}
+.hero-btn.primary::before { background: rgba(255,255,255,0.15); }
+.hero-btn.primary:hover { box-shadow: 0 0 28px rgba(57,255,20,0.35); }
+
+.hero-btn.ghost {
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+.hero-btn.ghost::before { background: var(--green-dim); }
+.hero-btn.ghost:hover { border-color: var(--green); color: var(--green); }
+
+/* ============================================================
+   À PROPOS
+   ============================================================ */
+#about .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 56px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.about-text p {
+  font-family: var(--sans);
+  font-size: 0.97rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.about-text p strong {
+  color: var(--green);
+  font-weight: 600;
+  font-family: var(--mono);
+}
+
+.about-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+.about-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  font-size: 0.65rem;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all var(--t-fast);
+  cursor: none;
+}
+.about-link:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+
+/* Carte profil */
+.profile-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  padding: 24px;
+  position: relative;
+  transition: border-color var(--t-fast);
+}
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20px; right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  transition: opacity var(--t-fast);
+}
+.profile-card:hover { border-color: var(--border2); }
+
+.profile-avatar {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.profile-avatar::after {
+  content: '?';
+  font-size: 3.5rem;
+  color: var(--text3);
+  font-weight: 700;
+  z-index: 1;
+}
+.profile-avatar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 4px,
+    rgba(57,255,20,0.03) 4px, rgba(57,255,20,0.03) 5px
+  );
+  z-index: 2;
+}
+.profile-meta { font-size: 0.7rem; color: var(--text2); }
+.profile-meta .line {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.profile-meta .line:last-child { border-bottom: none; }
+.profile-meta .key { color: var(--text3); flex-shrink: 0; }
+.profile-meta .val { color: var(--text); text-align: right; }
+
+/* ============================================================
+   PROJETS
+   ============================================================ */
+
+/* Boutons de filtre */
+.proj-filter {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+.filter-btn {
+  padding: 7px 16px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  cursor: none;
+  transition: all var(--t-fast);
+  position: relative;
+  overflow: hidden;
+}
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--green-dim);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.filter-btn:hover::before { opacity: 1; }
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--green);
+  color: var(--green);
+}
+.filter-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--green);
+}
+
+/* Grille de projets */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+/* Carte projet */
+.proj-card {
+  background: var(--bg);
+  padding: 26px;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--t-fast);
+  cursor: none;
+}
+.proj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.28s cubic-bezier(0.25,0.8,0.25,1);
+}
+/* Couleur de l'accent par catégorie */
+.proj-card.accent-blue::before   { background: var(--blue); }
+.proj-card.accent-amber::before  { background: var(--amber); }
+.proj-card.accent-purple::before { background: var(--purple); }
+.proj-card.accent-red::before    { background: var(--red); }
+
+.proj-card:hover { background: var(--bg2); }
+.proj-card:hover::before { transform: scaleY(1); }
+
+/* Overlay de survol */
+.proj-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(57,255,20,0.02), transparent);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.proj-card:hover::after { opacity: 1; }
+
+.proj-idx {
+  font-size: 0.58rem;
+  color: var(--text3);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.proj-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 1;
+  transition: color var(--t-fast);
+}
+.proj-card:hover .proj-name { color: #fff; }
+
+.proj-desc {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--text2);
+  font-weight: 300;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.proj-tags { display: flex; gap: 5px; flex-wrap: wrap; position: relative; z-index: 1; }
+.proj-tag {
+  font-size: 0.56rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  background: var(--bg3);
+  color: var(--text3);
+  border: 1px solid var(--border);
+  transition: all var(--t-fast);
+}
+.proj-card:hover .proj-tag { border-color: rgba(57,255,20,0.18); color: var(--text2); }
+
+/* Flèche externe */
+.proj-arrow {
+  position: absolute;
+  top: 24px; right: 24px;
+  font-size: 0.78rem;
+  color: var(--text3);
+  transition: all var(--t-fast);
+  z-index: 1;
+}
+.proj-card:hover .proj-arrow { color: var(--green); transform: translate(3px,-3px); }
+
+/* Transition cachée des cartes */
+.proj-card.hidden-card {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.97);
+}
+.proj-card.visible-card {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ============================================================
+   COMPÉTENCES
+   ============================================================ */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  border: 1px solid var(--border);
+  min-height: 380px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.skills-tabs-col {
+  border-right: 1px solid var(--border);
+  background: var(--bg1);
+}
+.skills-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  font-size: 0.68rem;
+  color: var(--text2);
+  cursor: none;
+  border-left: 2px solid transparent;
+  border-bottom: 1px solid var(--border);
+  transition: all var(--t-fast);
+  letter-spacing: 0.4px;
+  background: none;
+  border-top: none;
+  border-right: none;
+  text-align: left;
+  width: 100%;
+  font-family: var(--mono);
+}
+.skills-tab:hover, .skills-tab.active {
+  color: var(--green);
+  border-left-color: var(--green);
+  background: var(--green-dim);
+}
+.skills-tab .tab-icon { opacity: 0.45; font-size: 0.62rem; width: 11px; flex-shrink: 0; transition: opacity var(--t-fast); }
+.skills-tab:hover .tab-icon, .skills-tab.active .tab-icon { opacity: 1; }
+
+.skills-panel-col { padding: 26px 28px; }
+.skills-panel { display: none; }
+.skills-panel.active { display: block; animation: panelSlide 0.28s ease; }
+@keyframes panelSlide {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.skill-group { margin-bottom: 26px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-group-label {
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  opacity: 0.55;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.skill-group-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(57,255,20,0.18), transparent);
+}
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-tag {
+  padding: 5px 11px;
+  font-size: 0.7rem;
+  letter-spacing: 0.3px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all var(--t-fast);
+  cursor: default;
+}
+.skill-tag:hover { border-color: var(--green);  color: var(--green);  background: var(--green-dim); }
+.skill-tag.m:hover { border-color: var(--blue);   color: var(--blue);   background: rgba(0,207,255,0.05); }
+.skill-tag.y:hover { border-color: var(--amber);  color: var(--amber);  background: rgba(255,184,0,0.05); }
+.skill-tag.p:hover { border-color: var(--purple); color: var(--purple); background: rgba(184,125,255,0.05); }
+
+/* ============================================================
+   CERTIFICATIONS
+   ============================================================ */
+
+/* Grille principale des organisations */
+.cert-grid {
+  display: grid;
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+/* Bloc par organisation émettrice */
+.cert-org {
+  background: var(--bg);
+  padding: 28px 32px;
+  position: relative;
+  transition: background var(--t-fast);
+}
+.cert-org:hover { background: var(--bg1); }
+
+/* En-tête de l'organisation */
+.cert-org-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Badge coloré de l'organisation */
+.cert-org-badge {
+  width: 34px; height: 34px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+/* Couleurs spécifiques à chaque organisme */
+.cert-org-badge.cisco { background: rgba(0,180,255,0.10); border: 1px solid rgba(0,180,255,0.25); color: #00b4ff; }
+.cert-org-badge.cnil  { background: rgba(80,130,230,0.10); border: 1px solid rgba(80,130,230,0.25); color: #88aaff; }
+.cert-org-badge.neo4j { background: rgba(0,210,110,0.10); border: 1px solid rgba(0,210,110,0.25); color: #00d26e; }
+
+/* Nom de l'organisme en couleur distinctive */
+.cert-org-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.cert-org-name.cisco { color: #00b4ff; }
+.cert-org-name.cnil  { color: #88aaff; }
+.cert-org-name.neo4j { color: #00d26e; }
+
+/* Sous-titre de l'organisme */
+.cert-org-sub {
+  font-size: 0.58rem;
+  color: var(--text2);
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+/* Grille des vignettes de badges (images) */
+.cert-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* Vignette individuelle (cliquable → modal) */
+.cert-thumb {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  padding: 10px 8px 9px;
+  text-align: center;
+  cursor: none;
+  transition: all var(--t-fast);
+  position: relative;
+  overflow: hidden;
+}
+/* Indicateur de lien externe (icône) */
+.cert-thumb::after {
+  content: '↗';
+  position: absolute;
+  top: 5px; right: 7px;
+  font-size: 0.58rem;
+  color: var(--green);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.cert-thumb:hover { border-color: rgba(57,255,20,0.25); background: var(--bg2); }
+.cert-thumb:hover::after { opacity: 1; }
+.cert-thumb img {
+  width: 100%;
+  max-width: 105px;
+  height: 68px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 7px;
+}
+.cert-thumb-label {
+  font-size: 0.62rem;
+  color: var(--text2);
+  line-height: 1.3;
+}
+
+/* Liste des certifications textuelles avec statut */
+.cert-items { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  transition: all var(--t-fast);
+}
+.cert-item:hover { border-color: rgba(57,255,20,0.18); background: var(--bg2); }
+
+/* Indicateur de statut (point coloré) */
+.cert-pip {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.cert-pip.done  { background: var(--green); box-shadow: 0 0 5px rgba(57,255,20,0.6); }
+.cert-pip.wip   { background: var(--amber); box-shadow: 0 0 5px rgba(255,184,0,0.4); }
+
+.cert-item-name {
+  font-size: 0.78rem;
+  color: var(--text);
+  flex: 1;
+}
+.cert-item-status {
+  font-size: 0.58rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.cert-item-status.done { color: var(--green); opacity: 0.65; }
+.cert-item-status.wip  { color: var(--amber); opacity: 0.75; }
+
+/* Lien vers toutes les certifications */
+.cert-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+.cert-ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--border2);
+  color: var(--green);
+  text-decoration: none;
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all var(--t-fast);
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+}
+.cert-ext-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--green-dim);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.cert-ext-link:hover::before { opacity: 1; }
+.cert-ext-link:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 14px rgba(57,255,20,0.08);
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact .contact-inner {
+  max-width: 580px;
+  position: relative;
+  z-index: 1;
+}
+.contact-line {
+  font-size: 1.05rem;
+  color: var(--text2);
+  font-weight: 300;
+  font-family: var(--sans);
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+.contact-line strong {
+  color: #fff;
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.contact-links { display: flex; flex-direction: column; gap: 2px; }
+.contact-link-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 18px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text2);
+  font-size: 0.78rem;
+  background: var(--bg1);
+  transition: all var(--t-med);
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+}
+.contact-link-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--green-dim);
+  transform: translateX(-100%);
+  transition: transform var(--t-med) ease;
+}
+.contact-link-item:hover::before { transform: translateX(0); }
+.contact-link-item:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateX(6px);
+}
+.cl-icon { font-size: 0.95rem; opacity: 0.55; width: 18px; text-align: center; position: relative; z-index: 1; }
+.cl-label { font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 0.68rem; position: relative; z-index: 1; }
+.cl-val { margin-left: auto; font-size: 0.7rem; opacity: 0.65; position: relative; z-index: 1; }
+.cl-arrow { margin-left: 6px; opacity: 0; transition: opacity var(--t-fast), transform var(--t-fast); position: relative; z-index: 1; }
+.contact-link-item:hover .cl-arrow { opacity: 1; transform: translateX(4px); }
+
+/* ============================================================
+   VEILLE TECHNOLOGIQUE
+   ============================================================ */
+#veille .veille-box {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  padding: 32px;
+  max-width: 580px;
+  position: relative;
+  z-index: 1;
+  transition: border-color var(--t-fast);
+}
+#veille .veille-box::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+#veille .veille-box:hover { border-color: rgba(255,184,0,0.25); }
+.veille-desc {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--text2);
+  font-weight: 300;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+footer {
+  background: var(--bg1);
+  border-top: 1px solid var(--border);
+  padding: 24px 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+.footer-left { font-size: 0.62rem; color: var(--text3); letter-spacing: 1px; }
+.footer-left .green { color: var(--green); }
+.footer-right { display: flex; gap: 18px; }
+.footer-link {
+  font-size: 0.62rem;
+  color: var(--text3);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color var(--t-fast);
+  cursor: none;
+}
+.footer-link:hover { color: var(--green); }
+
+/* ============================================================
+   MODALE IMAGE (certifications)
+   ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.94);
+  z-index: 9900;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: modalIn 0.22s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.modal-overlay.open { display: flex; }
+.modal-img-wrap {
+  max-width: 85vw;
+  max-height: 85vh;
+  position: relative;
+  animation: modalScale 0.24s cubic-bezier(0.25,0.8,0.25,1);
+}
+@keyframes modalScale {
+  from { transform: scale(0.94); }
+  to   { transform: scale(1); }
+}
+.modal-img-wrap img {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  border: 1px solid var(--border2);
+}
+.modal-close-btn {
+  position: absolute;
+  top: -34px; right: 0;
+  font-size: 0.65rem;
+  color: var(--text2);
+  cursor: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  font-family: var(--mono);
+  transition: color var(--t-fast);
+}
+.modal-close-btn:hover { color: var(--green); }
+
+/* ============================================================
+   BOUTON MENU MOBILE
+   ============================================================ */
+.mobile-nav-toggle {
+  display: none;
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 600;
+  background: rgba(10,10,14,0.95);
+  border: 1px solid var(--border2);
+  width: 40px; height: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--t-fast);
+}
+.mobile-nav-toggle:hover { border-color: var(--green); }
+.mobile-nav-toggle span {
+  display: block;
+  width: 18px; height: 1px;
+  background: var(--green);
+  transition: all var(--t-fast);
+}
+.mobile-nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.mobile-nav-toggle.open span:nth-child(2) { opacity: 0; }
+.mobile-nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Overlay mobile */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 490;
+  backdrop-filter: blur(2px);
+}
+.mobile-overlay.open { display: block; }
+
+/* ============================================================
+   RESPONSIVE — TABLETTE & MOBILE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .section, #home {
+    padding: 72px 48px 72px 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root { --sidebar: 0px; }
+
+  /* Sidebar cachée par défaut sur mobile */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.32s cubic-bezier(0.25,0.8,0.25,1);
+    width: 260px;
+    --sidebar: 260px;
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px rgba(0,0,0,0.5);
+  }
+
+  .main { margin-left: 0; }
+  .mobile-nav-toggle { display: flex; }
+
+  .section, #home {
+    padding: 56px 20px 56px 20px;
+  }
+  footer { padding: 20px; }
+
+  /* Mise en page About */
+  #about .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .profile-card { max-width: 380px; }
+
+  /* Compétences en mode onglets horizontaux */
+  .skills-layout { grid-template-columns: 1fr; }
+  .skills-tabs-col {
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .skills-tabs-col::-webkit-scrollbar { display: none; }
+  .skills-tab {
+    border-bottom: none;
+    border-left: none;
+    border-top: 2px solid transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .skills-tab.active {
+    border-top-color: var(--green);
+    border-left: none;
+  }
+  .skills-panel-col { padding: 20px; }
+
+  /* Stats hero en grille */
+  .hero-stats { flex-wrap: wrap; }
+  .h-stat { min-width: 80px; flex: 1; }
+
+  /* Titre plus petit */
+  .hero-name { letter-spacing: -2px; }
+  .section-title { letter-spacing: -0.5px; }
+
+  /* Grille de projets 1 colonne */
+  .projects-grid { grid-template-columns: 1fr; }
+
+  /* Certs : AWS/Neo4j empilés */
+  .cert-pair-grid { grid-template-columns: 1fr !important; }
+
+  /* Filigrane masqué */
+  .section-watermark { display: none; }
+
+  .ambient-glow { display: none; }
+}
+
+@media (max-width: 480px) {
+  .section, #home { padding: 48px 16px; }
+  .hero-btn { font-size: 0.64rem; padding: 10px 16px; }
+  .cert-badges { grid-template-columns: repeat(2, 1fr); }
+  .hero-stats { gap: 0; }
+  .h-stat { padding: 14px 16px; }
+  .h-stat .n { font-size: 1.5rem; }
+  .about-links { flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<!--
+  ================================================================
+  ALEM.SYS — Portfolio d'Aksil Alem
+  ================================================================
+  Structure du fichier :
+    1. <head>           — méta, polices Google (IBM Plex Mono / Sans)
+    2. <style>          — tout le CSS en un seul bloc (pas de fichier externe)
+       ├─ Reset & variables CSS (:root)
+       ├─ Curseur personnalisé (#cursor, #cursor-ring)
+       ├─ Effets de fond (grille animée, scanlines, grain, lueur)
+       ├─ Layout sidebar + main
+       ├─ Sidebar (logo, statut, nav, horloge, langue)
+       ├─ Sections (eyebrow, titre, filigrane)
+       ├─ Animations de révélation (.reveal, .reveal-left, etc.)
+       ├─ Hero, About, Projects, Skills, Certifications, Contact, Veille
+       ├─ Modale image
+       └─ Responsive (1024px, 900px, 480px)
+    3. <body>
+       ├─ Éléments de fond (bg-grid, ambient-glow)
+       ├─ Curseur DOM (#cursor, #cursor-ring)
+       ├─ Overlay mobile + bouton hamburger
+       ├─ <aside.sidebar>  — navigation fixe latérale
+       └─ <main.main>      — sections défilantes
+          ├─ #home          (Hero)
+          ├─ #about         (À propos)
+          ├─ #projects      (14 projets filtrables)
+          ├─ #skills        (Compétences par onglets)
+          ├─ #certifications (Cisco, CNIL, Neo4j)
+          ├─ #contact       (LinkedIn, Email, GitHub)
+          └─ #veille        (Veille technologique)
+    4. <script>         — tout le JS vanilla en un seul bloc
+       ├─ Curseur animé (requestAnimationFrame)
+       ├─ Horloge temps réel
+       ├─ Onglets compétences
+       ├─ Filtre projets (Web Animations API)
+       ├─ Modale certifications
+       ├─ Navigation active (IntersectionObserver)
+       ├─ Animations de révélation (IntersectionObserver)
+       ├─ Compteurs animés (IntersectionObserver)
+       ├─ Menu mobile (toggle + overlay)
+       └─ i18n FR/EN (dictionnaire T, localStorage)
 
-<aside class="sidebar" id="sidebar">
-    <div style="padding: 30px; border-bottom: 1px solid var(--border);">
-        <div style="font-size: 0.6rem; color: var(--green); opacity: 0.7;">SYS_ID // 2026</div>
-        <div style="font-size: 1.1rem; font-weight: 700; color: #fff;">Aksil ALEM</div>
-        <div style="font-size: 0.7rem; color: #6b7280;">Étudiant en Informatique</div>
-    </div>
+  Technologies : HTML5, CSS3, JavaScript ES6+, Google Fonts
+  Aucune dépendance externe (pas de framework, pas de librairie JS)
+  ================================================================
+-->
 
-    <nav style="padding: 20px 0;">
-        <a href="#home" class="nav-item active"><span>▸</span> ACCUEIL</a>
-        <a href="#about" class="nav-item"><span>◈</span> À PROPOS</a>
-        <a href="#projects" class="nav-item"><span>◇</span> PROJETS</a>
-        <a href="#contact" class="nav-item"><span>◇</span> CONTACT</a>
-    </nav>
+<!-- Effets de fond -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="ambient-glow" aria-hidden="true"></div>
 
-    <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
-        <div id="clock" style="color: var(--green); font-size: 0.8rem; letter-spacing: 2px;">00:00:00</div>
-        <div id="dateStr" style="font-size: 0.6rem; color: #6b7280;">--/--/----</div>
-    </div>
+<!-- Curseur personnalisé (desktop uniquement) -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- Overlay mobile -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Bouton menu mobile -->
+<button class="mobile-nav-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- ======================================================
+     BARRE LATÉRALE
+     ====================================================== -->
+<aside class="sidebar" id="sidebar" aria-label="Navigation">
+  <div class="sidebar-logo">
+    <div class="sys-label">SYS_ID // 2026</div>
+    <div class="name">Aksil ALEM</div>
+    <div class="role" data-i18n="hero_subtitle">Étudiant en Informatique</div>
+  </div>
+
+  <div class="sidebar-status">
+    <div class="status-dot" aria-hidden="true"></div>
+    <span data-i18n="status_label">Disponible — BTS SIO</span>
+  </div>
+
+  <nav class="nav-tree" aria-label="Sections">
+    <div class="nav-section-label">Navigation</div>
+    <a href="#home" class="nav-item active" data-nav>
+      <span class="nav-icon" aria-hidden="true">▸</span>
+      <span data-i18n="nav_home">ACCUEIL</span>
+    </a>
+    <a href="#about" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">◈</span>
+      <span data-i18n="nav_about">À PROPOS</span>
+    </a>
+    <a href="#projects" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">◇</span>
+      <span data-i18n="nav_projects">PROJETS</span>
+      <span class="nav-count">14</span>
+    </a>
+    <a href="#skills" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">◈</span>
+      <span data-i18n="nav_skills">COMPÉTENCES</span>
+    </a>
+    <a href="#certifications" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">◎</span>
+      <span data-i18n="nav_certifications">CERTIFICATIONS</span>
+      <span class="nav-count">10+</span>
+    </a>
+    <a href="#contact" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">◇</span>
+      <span data-i18n="nav_contact">CONTACT</span>
+    </a>
+    <a href="#veille" class="nav-item" data-nav>
+      <span class="nav-icon" aria-hidden="true">▸</span>
+      <span data-i18n="nav_veille">VEILLE</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="clock" id="clock" aria-live="polite">--:--:--</div>
+    <div class="date-str" id="dateStr">---</div>
+    <button class="lang-toggle-btn" id="langToggle" aria-label="Changer la langue">
+      <span class="lang-flag" id="langFlag" aria-hidden="true">
+        <svg width="20" height="12" viewBox="0 0 60 30"><clipPath id="sc"><rect width="60" height="30" rx="2"/></clipPath><g clip-path="url(#sc)"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="4"/><path d="M30 0L30 30M0 15L60 15" stroke="#fff" stroke-width="10"/><path d="M30 0L30 30M0 15L60 15" stroke="#C8102E" stroke-width="6"/></g></svg>
+      </span>
+      <span id="langLabel">EN</span>
+    </button>
+  </div>
 </aside>
 
+<!-- ======================================================
+     CONTENU PRINCIPAL
+     ====================================================== -->
 <main class="main">
-    <section id="home">
-        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
-            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f57;"></div>
-            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e;"></div>
-            <div style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f;"></div>
+
+  <!-- ── HERO ── -->
+  <section id="home" aria-label="Accueil">
+    <div class="section-watermark" aria-hidden="true">SYS</div>
+    <div class="hero-terminal-bar" aria-hidden="true">
+      <div class="t-dot red"></div>
+      <div class="t-dot amber"></div>
+      <div class="t-dot green"></div>
+      <span class="t-title">ALEM.SYS — bash — 120×40</span>
+    </div>
+    <div class="hero-prompt" data-i18n="hero_prompt">whoami</div>
+    <h1 class="hero-name" data-text="Aksil ALEM">Aksil ALEM</h1>
+    <div class="hero-subtitle">
+      <span class="hi" data-i18n="hero_subtitle_label">Cybersécurité</span>&nbsp;//&nbsp;
+      <span data-i18n="hero_subtitle_label2">Réseaux</span>&nbsp;//&nbsp;
+      <span data-i18n="hero_subtitle_label3">Développement</span>
+    </div>
+
+    <div class="hero-stats" role="list">
+      <div class="h-stat" role="listitem">
+        <span class="n" data-target="14" aria-label="14 projets">0</span>
+        <span class="l" data-i18n="stat_projects">Projets</span>
+      </div>
+      <div class="h-stat" role="listitem">
+        <span class="n" data-target="5" aria-label="5 années">0</span>
+        <span class="l" data-i18n="stat_years">Années</span>
+      </div>
+      <div class="h-stat" role="listitem">
+        <span class="n" data-target="10" aria-label="10 certifications">0</span>
+        <span class="l" data-i18n="stat_certs">Certifs</span>
+      </div>
+      <div class="h-stat" role="listitem">
+        <span class="n" data-target="3" aria-label="3 stages">0</span>
+        <span class="l" data-i18n="stat_stages">Stages</span>
+      </div>
+    </div>
+
+    <div class="hero-links">
+      <a href="https://drive.google.com/file/d/1-ebyKW6WkK_Q399vLxjhLgsHNyfnISzN/view?usp=drive_link"
+         class="hero-btn primary" target="_blank" rel="noopener" data-i18n="btn_cv">↓ CV.pdf</a>
+      <a href="#projects" class="hero-btn ghost" data-i18n="btn_projects">Voir les projets →</a>
+      <a href="#contact"  class="hero-btn ghost" data-i18n="btn_contact">Contact</a>
+    </div>
+  </section>
+
+  <!-- ── À PROPOS ── -->
+  <section id="about" class="section reveal" aria-label="À propos">
+    <div class="section-watermark" aria-hidden="true">ABOUT</div>
+    <div class="section-eyebrow">
+      <span class="idx">01 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_about">À propos</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="about_title_acc">Qui</span>
+      <span data-i18n="about_title_rest"> suis-je ?</span>
+    </h2>
+
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <p data-i18n="about_p1">Je m'appelle <strong>Aksil Alem</strong>, j'ai 19 ans et je suis passionné par l'informatique, en particulier par la <strong>cybersécurité</strong> et les <strong>réseaux</strong>. Après avoir obtenu un baccalauréat professionnel CIEL mention Bien, je poursuis actuellement mes études en <strong>BTS SIO</strong>.</p>
+        <p data-i18n="about_p2">Ce parcours me permet de développer mes compétences techniques et de me préparer à relever de nouveaux défis dans le domaine de l'informatique. Curieux, motivé et rigoureux, je cherche à mettre en pratique mes connaissances au travers de projets concrets et enrichissants.</p>
+        <p data-i18n="about_p3">Grâce aux différents stages professionnels que j'ai réalisés depuis la seconde, j'ai pu acquérir de l'expérience concrète dans plusieurs domaines : réseau, support technique et développement.</p>
+        <div class="about-links">
+          <a href="https://drive.google.com/file/d/1-ebyKW6WkK_Q399vLxjhLgsHNyfnISzN/view?usp=drive_link"
+             class="about-link" target="_blank" rel="noopener" data-i18n="cv_link">↓ CV</a>
+          <a href="https://drive.google.com/file/d/1IkO_LNQpJjW6WP8ZynEVIfFj6xGZH2Is/view?usp=drive_link"
+             class="about-link" target="_blank" rel="noopener" data-i18n="synthesis_link">Tableau de synthèse</a>
+        </div>
+      </div>
+      <div class="profile-card reveal-right">
+        <div class="profile-avatar" aria-label="Photo de profil"></div>
+        <div class="profile-meta">
+          <div class="line"><span class="key">nom</span><span class="val">Aksil ALEM</span></div>
+          <div class="line"><span class="key">formation</span><span class="val">BTS SIO</span></div>
+          <div class="line"><span class="key">bac</span><span class="val">CIEL — Mention Bien</span></div>
+          <div class="line"><span class="key">localisation</span><span class="val">France</span></div>
+          <div class="line"><span class="key">statut</span><span class="val" style="color:var(--green)" data-i18n="status_label">Disponible</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJETS ── -->
+  <section id="projects" class="section reveal" aria-label="Projets">
+    <div class="section-watermark" aria-hidden="true">PROJ</div>
+    <div class="section-eyebrow">
+      <span class="idx">02 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_projects">Projets</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="proj_title_acc">Projets</span>
+      <span data-i18n="proj_title_rest"> réalisés</span>
+    </h2>
+
+    <!-- Filtres par catégorie (nouvelles catégories) -->
+    <div class="proj-filter" role="group" aria-label="Filtrer les projets">
+      <button class="filter-btn active" data-filter="all"      data-i18n="filter_all">Tous</button>
+      <button class="filter-btn"        data-filter="cybersec" data-i18n="filter_cybersec">Cybersécurité</button>
+      <button class="filter-btn"        data-filter="reseau"   data-i18n="filter_reseau">Administration Réseaux</button>
+      <button class="filter-btn"        data-filter="ia"       data-i18n="filter_ia">Intelligence Artificielle</button>
+      <button class="filter-btn"        data-filter="autres"   data-i18n="filter_autres">Autres</button>
+    </div>
+
+    <div class="projects-grid reveal-stagger" id="projectsGrid">
+
+      <!-- SmartVision → Intelligence Artificielle -->
+      <div class="proj-card accent-purple" data-cat="ia">
+        <span class="proj-idx">./proj_01</span>
+        <div class="proj-name">SmartVision</div>
+        <div class="proj-desc" data-i18n="proj_smartvision_desc">Système de surveillance alimenté par l'IA — vision par ordinateur pour la détection des expressions faciales et des mouvements humains en temps réel.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">IA</span>
+          <span class="proj-tag">Computer Vision</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">OpenCV</span>
+        </div>
+      </div>
+
+      <!-- NTP Spoofing → Cybersécurité -->
+      <div class="proj-card accent-red" data-cat="cybersec">
+        <span class="proj-idx">./proj_02</span>
+        <div class="proj-name">NTP Spoofing</div>
+        <div class="proj-desc" data-i18n="proj_ntp_desc">Simulation contrôlée de spoofing du protocole NTP — analyse de l'impact sur l'intégrité de la synchronisation temporelle et la sécurité réseau.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">NTP</span>
+          <span class="proj-tag">Pentest</span>
+          <span class="proj-tag">Réseau</span>
+          <span class="proj-tag">Scapy</span>
+        </div>
+      </div>
+
+      <!-- SQL Injection → Cybersécurité -->
+      <div class="proj-card accent-red" data-cat="cybersec">
+        <span class="proj-idx">./proj_03</span>
+        <div class="proj-name">SQL Injection</div>
+        <div class="proj-desc" data-i18n="proj_sqli_desc">Analyse et exploitation pratique des vulnérabilités par injection SQL dans un environnement contrôlé — comprendre les failles web et les vecteurs d'attaque.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">SQLi</span>
+          <span class="proj-tag">OWASP</span>
+          <span class="proj-tag">BurpSuite</span>
+          <span class="proj-tag">Web Sec</span>
+        </div>
+      </div>
+
+      <!-- CTF → Cybersécurité -->
+      <div class="proj-card" data-cat="cybersec">
+        <span class="proj-idx">./proj_04</span>
+        <div class="proj-name" data-i18n="proj_ctf_name">Passe Ton Hack D'abord</div>
+        <div class="proj-desc" data-i18n="proj_ctf_desc">Compétition CTF organisée par le gouvernement français — challenges en cryptographie, sécurité web, reverse engineering et exploitation système.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">CTF</span>
+          <span class="proj-tag">Crypto</span>
+          <span class="proj-tag">Forensics</span>
+          <span class="proj-tag">Rev</span>
+          <span class="proj-tag">Teamwork</span>
+        </div>
+      </div>
+
+      <!-- GLPI → Administration Réseaux -->
+      <div class="proj-card accent-blue" data-cat="reseau">
+        <span class="proj-idx">./proj_05</span>
+        <div class="proj-name">GLPI sous Docker</div>
+        <div class="proj-desc" data-i18n="proj_glpi_desc">Déploiement d'une plateforme ITSM conteneurisée avec Docker Compose — gestion de parc, suivi d'inventaires et ticketing opérationnel centralisé.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Docker</span>
+          <span class="proj-tag">GLPI</span>
+          <span class="proj-tag">ITSM</span>
+          <span class="proj-tag">Linux</span>
+        </div>
+      </div>
+
+      <!-- Ultimax Search → Cybersécurité -->
+      <a href="https://cyberouzou.github.io/ultimaxsearch"
+         class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
+        <span class="proj-idx">./proj_06</span>
+        <div class="proj-name">Ultimax Search</div>
+        <div class="proj-desc" data-i18n="proj_ultimax_desc">Outil OSINT de sécurité — IP lookup, détection de fuites d'emails et récupération d'informations publiques à des fins d'investigation cybersécurité.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">OSINT</span>
+          <span class="proj-tag">API</span>
+          <span class="proj-tag">Cybersec</span>
+          <span class="proj-tag">JS</span>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <!-- ALEM.SYS Portfolio → Autres -->
+      <div class="proj-card accent-blue" data-cat="autres">
+        <span class="proj-idx">./proj_07</span>
+        <div class="proj-name">ALEM.SYS Portfolio</div>
+        <div class="proj-desc" data-i18n="proj_portfolio_desc">Site portfolio personnel — design hacker terminal en HTML/CSS/JS vanille, bilingue FR/EN, avec effets glitch, cursor custom et animations.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">Design</span>
+        </div>
+      </div>
+
+      <!-- Bloodframe → Autres -->
+      <a href="https://cyb3rouzou.itch.io/bloodframe"
+         class="proj-card accent-red" target="_blank" rel="noopener" data-cat="autres">
+        <span class="proj-idx">./proj_08</span>
+        <div class="proj-name">Bloodframe</div>
+        <div class="proj-desc" data-i18n="proj_blood_desc">Jeu vidéo 2D — horreur psychologique &amp; shooter top-down. Gameplay, level design et moteur custom développés en GDScript.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">GameDev</span>
+          <span class="proj-tag">Godot</span>
+          <span class="proj-tag">GDScript</span>
+          <span class="proj-tag">2D</span>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <!-- Hacking Lab Docker → Administration Réseaux -->
+      <div class="proj-card accent-blue" data-cat="reseau">
+        <span class="proj-idx">./proj_09</span>
+        <div class="proj-name">Hacking Lab Docker</div>
+        <div class="proj-desc" data-i18n="proj_lab_desc">Environnement de lab hacking isolé sous Docker — machines vulnérables, réseaux segmentés et toolchain offensive intégrée avec Kali Linux.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Docker</span>
+          <span class="proj-tag">Kali</span>
+          <span class="proj-tag">Pentest</span>
+          <span class="proj-tag">Réseau</span>
+        </div>
+      </div>
+
+      <!-- Small Language Model → Intelligence Artificielle -->
+      <div class="proj-card accent-purple" data-cat="ia">
+        <span class="proj-idx">./proj_10</span>
+        <div class="proj-name">Small Language Model</div>
+        <div class="proj-desc" data-i18n="proj_llm_desc">Déploiement et fine-tuning d'un LLM local via Ollama — inférence offline, personnalisation du modèle et interface de test interactive.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Ollama</span>
+          <span class="proj-tag">LLM</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">IA</span>
+        </div>
+      </div>
+
+      <!--
+        ══════════════════════════════════════════════════════
+        NOUVEAUX PROJETS (proj_11 → proj_14)
+        Ajoutés en avril 2026 — 4 projets supplémentaires
+        ══════════════════════════════════════════════════════
+      -->
+
+      <!-- Analyse Nmap / Nikto → Cybersécurité
+           Reconnaissance réseau + scan de vulnérabilités web
+           Outils : Nmap (ports/services), Nikto (vulnérabilités HTTP)
+           Environnement : Kali Linux sur VM isolée -->
+      <div class="proj-card accent-red" data-cat="cybersec">
+        <span class="proj-idx">./proj_11</span>
+        <div class="proj-name" data-i18n="proj_nmap_name">Analyse de vulnérabilités</div>
+        <div class="proj-desc" data-i18n="proj_nmap_desc">Identification et analyse de vulnérabilités réseau et web avec Nmap et Nikto — cartographie des ports ouverts, détection de services exposés et rapport de surface d'attaque.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Nmap</span>
+          <span class="proj-tag">Nikto</span>
+          <span class="proj-tag">Pentest</span>
+          <span class="proj-tag">Kali</span>
+          <span class="proj-tag">Recon</span>
+        </div>
+      </div>
+
+      <!-- Serveur DHCP Debian → Administration Réseaux
+           Mise en place d'un service DHCP sur une VM Debian
+           Outils : isc-dhcp-server, configuration des plages IP,
+           réservations statiques, baux dynamiques -->
+      <div class="proj-card accent-blue" data-cat="reseau">
+        <span class="proj-idx">./proj_12</span>
+        <div class="proj-name" data-i18n="proj_dhcp_name">Serveur DHCP Debian</div>
+        <div class="proj-desc" data-i18n="proj_dhcp_desc">Mise en place d'un serveur DHCP sous Debian en environnement d'infrastructure réseau — configuration des plages d'adresses, réservations statiques et gestion des baux dynamiques.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">DHCP</span>
+          <span class="proj-tag">Debian</span>
+          <span class="proj-tag">Linux</span>
+          <span class="proj-tag">Réseau</span>
+          <span class="proj-tag">Infra</span>
+        </div>
+      </div>
+
+      <!-- Détecteur de spam Python → Intelligence Artificielle
+           Modèle de classification NLP entraîné sur Ubuntu
+           Approche : Naive Bayes / bag-of-words, sklearn
+           Objectif : filtrage automatique de messages suspects -->
+      <div class="proj-card accent-purple" data-cat="ia">
+        <span class="proj-idx">./proj_13</span>
+        <div class="proj-name" data-i18n="proj_spam_name">Détecteur de Spam</div>
+        <div class="proj-desc" data-i18n="proj_spam_desc">Détecteur de spam développé en Python sous Ubuntu — modèle de classification NLP entraîné pour filtrer automatiquement les messages indésirables avec apprentissage automatique.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">NLP</span>
+          <span class="proj-tag">ML</span>
+          <span class="proj-tag">Ubuntu</span>
+          <span class="proj-tag">Sklearn</span>
+        </div>
+      </div>
+
+      <!-- Active Directory Windows Server → Administration Réseaux
+           Déploiement d'un domaine AD complet sur Windows Server
+           Fonctions : création d'OU, GPO, utilisateurs/groupes,
+           jonction de postes, politiques de sécurité -->
+      <div class="proj-card accent-blue" data-cat="reseau">
+        <span class="proj-idx">./proj_14</span>
+        <div class="proj-name" data-i18n="proj_ad_name">Active Directory</div>
+        <div class="proj-desc" data-i18n="proj_ad_desc">Déploiement et administration d'un Active Directory sous Windows Server — création d'unités organisationnelles, gestion des utilisateurs, groupes, GPO et politiques de sécurité de domaine.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Active Directory</span>
+          <span class="proj-tag">Windows Server</span>
+          <span class="proj-tag">GPO</span>
+          <span class="proj-tag">DNS</span>
+          <span class="proj-tag">LDAP</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── COMPÉTENCES ── -->
+  <section id="skills" class="section reveal" aria-label="Compétences">
+    <div class="section-watermark" aria-hidden="true">SKILL</div>
+    <div class="section-eyebrow">
+      <span class="idx">03 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_skills">Compétences</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="skills_title_acc">Stack</span>
+      <span data-i18n="skills_title_rest"> technique</span>
+    </h2>
+
+    <div class="skills-layout">
+      <div class="skills-tabs-col" role="tablist" aria-label="Catégories de compétences">
+        <button class="skills-tab active" data-tab="s-net"  role="tab" aria-selected="true"  aria-controls="s-net">
+          <span class="tab-icon" aria-hidden="true">▸</span> Infrastructure
+        </button>
+        <button class="skills-tab" data-tab="s-virt" role="tab" aria-selected="false" aria-controls="s-virt">
+          <span class="tab-icon" aria-hidden="true">▸</span> Virtualisation
+        </button>
+        <button class="skills-tab" data-tab="s-prog" role="tab" aria-selected="false" aria-controls="s-prog">
+          <span class="tab-icon" aria-hidden="true">▸</span> Programmation
+        </button>
+        <button class="skills-tab" data-tab="s-sec"  role="tab" aria-selected="false" aria-controls="s-sec">
+          <span class="tab-icon" aria-hidden="true">▸</span> Cybersécurité
+        </button>
+      </div>
+      <div class="skills-panel-col">
+        <!-- Onglet Infrastructure / Réseau -->
+        <div class="skills-panel active" id="s-net" role="tabpanel">
+          <div class="skill-group">
+            <div class="skill-group-label">Protocoles &amp; Architecture</div>
+            <div class="skill-tags">
+              <span class="skill-tag">TCP/IP</span><span class="skill-tag">LAN / WAN</span><span class="skill-tag">VLAN</span>
+              <span class="skill-tag">DHCP</span><span class="skill-tag">DNS</span><span class="skill-tag">NTP</span>
+              <span class="skill-tag">ICMP</span><span class="skill-tag">NAT</span>
+              <span class="skill-tag">Routage statique</span><span class="skill-tag">Routage dynamique</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Accès sécurisé</div>
+            <div class="skill-tags">
+              <span class="skill-tag m">VPN</span><span class="skill-tag m">Proxy</span><span class="skill-tag m">Pare-feu</span>
+              <span class="skill-tag m">Active Directory</span><span class="skill-tag m">GPO / GPP</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Outils</div>
+            <div class="skill-tags">
+              <span class="skill-tag y">Switches &amp; Routeurs</span><span class="skill-tag y">Wireshark</span>
+              <span class="skill-tag y">Cisco Packet Tracer</span><span class="skill-tag y">Scapy</span>
+            </div>
+          </div>
+        </div>
+        <!-- Onglet Virtualisation -->
+        <div class="skills-panel" id="s-virt" role="tabpanel">
+          <div class="skill-group">
+            <div class="skill-group-label">Hyperviseurs</div>
+            <div class="skill-tags">
+              <span class="skill-tag">VMware Workstation</span><span class="skill-tag">Oracle VirtualBox</span>
+              <span class="skill-tag">Proxmox VE</span><span class="skill-tag">Docker</span>
+              <span class="skill-tag">Docker Compose</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Systèmes virtualisés</div>
+            <div class="skill-tags">
+              <span class="skill-tag m">Ubuntu</span><span class="skill-tag m">Debian</span>
+              <span class="skill-tag m">Kali Linux</span><span class="skill-tag m">Windows Server</span>
+              <span class="skill-tag m">Windows 10/11</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Réseau virtualisé</div>
+            <div class="skill-tags">
+              <span class="skill-tag y">NAT</span><span class="skill-tag y">Bridge</span>
+              <span class="skill-tag y">VLAN virtualisé</span><span class="skill-tag y">Réseau isolé</span>
+            </div>
+          </div>
+        </div>
+        <!-- Onglet Programmation -->
+        <div class="skills-panel" id="s-prog" role="tabpanel">
+          <div class="skill-group">
+            <div class="skill-group-label">Web</div>
+            <div class="skill-tags">
+              <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+              <span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Bases de données</div>
+            <div class="skill-tags">
+              <span class="skill-tag m">SQL</span><span class="skill-tag m">Cypher (Neo4j)</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Scripting &amp; Automatisation</div>
+            <div class="skill-tags">
+              <span class="skill-tag y">Shell / Bash</span><span class="skill-tag y">Batch</span>
+              <span class="skill-tag y">Python</span><span class="skill-tag y">C++</span>
+              <span class="skill-tag y">GDScript</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">IA &amp; Vision</div>
+            <div class="skill-tags">
+              <span class="skill-tag p">OpenCV</span><span class="skill-tag p">Ollama</span>
+              <span class="skill-tag p">LLM local</span>
+            </div>
+          </div>
+        </div>
+        <!-- Onglet Cybersécurité -->
+        <div class="skills-panel" id="s-sec" role="tabpanel">
+          <div class="skill-group">
+            <div class="skill-group-label">Offensif</div>
+            <div class="skill-tags">
+              <span class="skill-tag">SQLi</span><span class="skill-tag">XSS</span>
+              <span class="skill-tag">NTP Spoofing</span><span class="skill-tag">CTF</span>
+              <span class="skill-tag">OSINT</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Outils offensifs</div>
+            <div class="skill-tags">
+              <span class="skill-tag m">BurpSuite</span><span class="skill-tag m">Nmap</span>
+              <span class="skill-tag m">Metasploit</span><span class="skill-tag m">Scapy</span>
+              <span class="skill-tag m">Kali Linux</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-label">Défensif &amp; Analyse</div>
+            <div class="skill-tags">
+              <span class="skill-tag y">Pare-feu</span><span class="skill-tag y">SIEM</span>
+              <span class="skill-tag y">Wireshark</span><span class="skill-tag y">RGPD / CNIL</span>
+              <span class="skill-tag y">Network Defense</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CERTIFICATIONS ── -->
+  <!--
+    SECTION CERTIFICATIONS
+    ─────────────────────────────────────────────────────────────
+    Organisation : 3 blocs d'organismes émetteurs
+      1. Cisco Networking Academy  — badges visuels + liste de certifs
+      2. CNIL                      — 4 modules RGPD avec badges
+      3. Neo4j                     — certification professionnelle
+
+    Structure d'un bloc :
+      .cert-org
+        ├─ .cert-org-top      → badge coloré + nom organisme
+        ├─ .cert-badges       → vignettes cliquables (ouvrent la modale)
+        └─ .cert-items        → liste textuelle avec statut (obtenu / en cours)
+
+    Statuts possibles :
+      .cert-pip.done  → obtenu   (vert)
+      .cert-pip.wip   → en cours (ambre)
+  ─────────────────────────────────────────────────────────────
+  -->
+  <section id="certifications" class="section reveal" aria-label="Certifications">
+    <div class="section-watermark" aria-hidden="true">CERT</div>
+    <div class="section-eyebrow">
+      <span class="idx">04 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_certifications">Certifications</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="cert_title_acc">Certifications</span>
+      <span data-i18n="cert_title_rest"> &amp; badges</span>
+    </h2>
+
+    <!-- Grille des organismes (empilés verticalement, 2 par ligne pour Cisco/CNIL) -->
+    <div class="cert-grid">
+
+      <!-- ── CISCO NETWORKING ACADEMY ── -->
+      <!--
+        Cisco : 4 badges visuels + 5 certifications textuelles
+        Couleur thème : bleu clair (#00b4ff)
+      -->
+      <div class="cert-org">
+        <div class="cert-org-top">
+          <div class="cert-org-badge cisco" aria-hidden="true">CS</div>
+          <div>
+            <div class="cert-org-name cisco">Cisco</div>
+            <div class="cert-org-sub">Networking Academy</div>
+          </div>
         </div>
 
-        <div style="color: var(--green); font-size: 0.8rem; opacity: 0.7;">~/portfolio $ whoami</div>
-        <h1 class="hero-name" data-text="Aksil ALEM">Aksil ALEM</h1>
-        
-        <div style="margin: 20px 0 40px; color: #6b7280; font-size: 0.9rem; letter-spacing: 3px;">
-            <span style="color: var(--green);">CYBERSÉCURITÉ</span> // RÉSEAUX // DÉVELOPPEMENT
+        <!-- Badges visuels Cisco (clic → modal agrandissement) -->
+        <div class="cert-badges">
+          <div class="cert-thumb" data-img="Computer Hardware Basics.png" data-alt="Computer Hardware Basics" role="button" tabindex="0" aria-label="Voir le badge Computer Hardware Basics">
+            <img src="Computer Hardware Basics.png" alt="Computer Hardware Basics" loading="lazy">
+            <div class="cert-thumb-label">Computer Hardware Basics</div>
+          </div>
+          <div class="cert-thumb" data-img="Introduction to Cybersecurity.png" data-alt="Intro to Cybersecurity" role="button" tabindex="0" aria-label="Voir le badge Introduction to Cybersecurity">
+            <img src="Introduction to Cybersecurity.png" alt="Introduction to Cybersecurity" loading="lazy">
+            <div class="cert-thumb-label">Introduction to Cybersecurity</div>
+          </div>
+          <div class="cert-thumb" data-img="Introduction to Packet Tracer.png" data-alt="Intro to Packet Tracer" role="button" tabindex="0" aria-label="Voir le badge Introduction to Packet Tracer">
+            <img src="Introduction to Packet Tracer.png" alt="Introduction to Packet Tracer" loading="lazy">
+            <div class="cert-thumb-label">Introduction to Packet Tracer</div>
+          </div>
+          <div class="cert-thumb" data-img="Networking Basics.png" data-alt="Networking Basics" role="button" tabindex="0" aria-label="Voir le badge Networking Basics">
+            <img src="Networking Basics.png" alt="Networking Basics" loading="lazy">
+            <div class="cert-thumb-label">Networking Basics</div>
+          </div>
         </div>
 
-        <div style="display: flex; gap: 15px;">
-            <a href="URL_VERS_TON_CV" class="hero-btn primary" target="_blank" rel="noopener">↓ TÉLÉCHARGER CV</a>
-            <a href="#projects" style="color: #fff; text-decoration: none; font-size: 0.8rem; align-self: center;">Projets →</a>
+        <!-- Liste des certifications Cisco avec statut -->
+        <div class="cert-items">
+          <div class="cert-item">
+            <div class="cert-pip done" aria-label="Obtenu"></div>
+            <span class="cert-item-name">Networking Devices and Initial Configuration</span>
+            <span class="cert-item-status done" data-i18n="st_done">Obtenu</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-pip done" aria-label="Obtenu"></div>
+            <span class="cert-item-name">Network Defense</span>
+            <span class="cert-item-status done" data-i18n="st_done">Obtenu</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-pip done" aria-label="Obtenu"></div>
+            <span class="cert-item-name">Ethical Hacker</span>
+            <span class="cert-item-status done" data-i18n="st_done">Obtenu</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-pip wip" aria-label="En cours"></div>
+            <span class="cert-item-name">CCNA</span>
+            <span class="cert-item-status wip" data-i18n="st_wip">En cours</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-pip wip" aria-label="En cours"></div>
+            <span class="cert-item-name">CyberOps Associate</span>
+            <span class="cert-item-status wip" data-i18n="st_wip">En cours</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <section id="about" style="padding: 80px; border-top: 1px solid var(--border);">
-        <h2 style="color: #fff; font-size: 2rem;">À propos</h2>
-        </section>
+      <!-- ── CNIL — RGPD ── -->
+      <!--
+        CNIL : 4 modules de formation à la protection des données personnelles
+        Couleur thème : bleu-violet (#88aaff)
+      -->
+      <div class="cert-org">
+        <div class="cert-org-top">
+          <div class="cert-org-badge cnil" aria-hidden="true">CN</div>
+          <div>
+            <div class="cert-org-name cnil" data-i18n="cnil_name">CNIL</div>
+            <div class="cert-org-sub" data-i18n="cnil_sub">Commission nationale de l'informatique et des libertés</div>
+          </div>
+        </div>
+
+        <!-- Badges visuels des 4 modules CNIL -->
+        <div class="cert-badges">
+          <div class="cert-thumb" data-img="Module 1.png" data-alt="Module 1" role="button" tabindex="0" aria-label="Voir le badge Module 1">
+            <img src="Module 1.png" alt="Module 1 CNIL" loading="lazy">
+            <div class="cert-thumb-label">Module 1</div>
+          </div>
+          <div class="cert-thumb" data-img="Module 2.png" data-alt="Module 2" role="button" tabindex="0" aria-label="Voir le badge Module 2">
+            <img src="Module 2.png" alt="Module 2 CNIL" loading="lazy">
+            <div class="cert-thumb-label">Module 2</div>
+          </div>
+          <div class="cert-thumb" data-img="Module 3.png" data-alt="Module 3" role="button" tabindex="0" aria-label="Voir le badge Module 3">
+            <img src="Module 3.png" alt="Module 3 CNIL" loading="lazy">
+            <div class="cert-thumb-label">Module 3</div>
+          </div>
+          <div class="cert-thumb" data-img="Module 4.png" data-alt="Module 4" role="button" tabindex="0" aria-label="Voir le badge Module 4">
+            <img src="Module 4.png" alt="Module 4 CNIL" loading="lazy">
+            <div class="cert-thumb-label">Module 4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NEO4J ── -->
+      <!--
+        Neo4j : certification base de données orientée graphes
+        Couleur thème : vert émeraude (#00d26e)
+        Note : Amazon Web Services a été retiré de cette section
+      -->
+      <div class="cert-org">
+        <div class="cert-org-top">
+          <div class="cert-org-badge neo4j" aria-hidden="true">N4J</div>
+          <div>
+            <div class="cert-org-name neo4j">Neo4j</div>
+            <div class="cert-org-sub">Graph Database Platform</div>
+          </div>
+        </div>
+        <div class="cert-items">
+          <div class="cert-item">
+            <div class="cert-pip done" aria-label="Obtenu"></div>
+            <span class="cert-item-name">Neo4j Certified Professional</span>
+            <span class="cert-item-status done" data-i18n="st_done">Obtenu</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin .cert-grid -->
+
+    <!-- Lien vers toutes les certifications sur Google Drive -->
+    <div class="cert-footer">
+      <a href="https://drive.google.com/drive/folders/1YLRcKBjjzZSeD6GYC5ytgZjN9b-zAm9r?usp=drive_link"
+         class="cert-ext-link" target="_blank" rel="noopener" data-i18n="consult_certs">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        Consulter toutes mes certifications
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="section reveal" aria-label="Contact">
+    <div class="section-watermark" aria-hidden="true">MSG</div>
+    <div class="section-eyebrow">
+      <span class="idx">05 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_contact">Contact</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="contact_title_acc">Me</span>
+      <span data-i18n="contact_title_rest"> contacter</span>
+    </h2>
+    <div class="contact-inner">
+      <p class="contact-line" data-i18n="contact_line">Étudiant en BTS SIO, <strong>disponible</strong> pour stages, alternances ou collaborations dans le domaine de la <strong>cybersécurité</strong> et des <strong>réseaux</strong>.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/aksil-alem" class="contact-link-item" target="_blank" rel="noopener">
+          <span class="cl-icon" aria-hidden="true">in</span>
+          <span class="cl-label">LinkedIn</span>
+          <span class="cl-val">aksil-alem</span>
+          <span class="cl-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="mailto:aksil.alem.pro@gmail.com" class="contact-link-item">
+          <span class="cl-icon" aria-hidden="true">@</span>
+          <span class="cl-label">Email</span>
+          <span class="cl-val">aksil.alem.pro@gmail.com</span>
+          <span class="cl-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="https://github.com/cyberouzou" class="contact-link-item" target="_blank" rel="noopener">
+          <span class="cl-icon" aria-hidden="true">&lt;/&gt;</span>
+          <span class="cl-label">GitHub</span>
+          <span class="cl-val">cyberouzou</span>
+          <span class="cl-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VEILLE TECHNOLOGIQUE ── -->
+  <section id="veille" class="section reveal" aria-label="Veille technologique">
+    <div class="section-watermark" aria-hidden="true">WATCH</div>
+    <div class="section-eyebrow">
+      <span class="idx">06 //</span>
+      <span style="font-size:0.6rem;letter-spacing:3px;color:var(--text2);text-transform:uppercase" data-i18n="nav_veille">Veille</span>
+    </div>
+    <h2 class="section-title">
+      <span class="accent" data-i18n="veille_title_acc">Veille</span>
+      <span data-i18n="veille_title_rest"> technologique</span>
+    </h2>
+    <div class="veille-box">
+      <p class="veille-desc" data-i18n="veille_desc">Suivi régulier de l'actualité en cybersécurité, nouvelles vulnérabilités, évolutions des protocoles réseau et tendances du secteur informatique.</p>
+      <a href="https://drive.google.com/file/d/1IMWPzwvT7od7Smh-RvENNLFjiozQfRO_/view?usp=drive_link"
+         class="cert-ext-link" target="_blank" rel="noopener" data-i18n="consult_veille">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        Consulter ma veille
+      </a>
+    </div>
+  </section>
+
+  <!-- ── PIED DE PAGE ── -->
+  <footer>
+    <div class="footer-left">
+      &copy; 2026 <span class="green">ALEM.SYS</span> — Aksil Alem
+    </div>
+    <div class="footer-right">
+      <a href="#home"     class="footer-link" data-i18n="nav_home">Accueil</a>
+      <a href="#projects" class="footer-link" data-i18n="nav_projects">Projets</a>
+      <a href="https://www.linkedin.com/in/aksil-alem" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/cyberouzou"          class="footer-link" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
 </main>
 
+<!-- ── MODALE D'IMAGE (certifications) ── -->
+<div class="modal-overlay" id="certModal" role="dialog" aria-modal="true" aria-label="Badge agrandi">
+  <div class="modal-img-wrap">
+    <button class="modal-close-btn" id="modalClose" aria-label="Fermer">[ ESC ] Fermer</button>
+    <img id="modalImg" src="" alt="">
+  </div>
+</div>
+
 <script>
-    /**
-     * SÉCURITÉ ET INTERACTION
-     */
+/* ================================================================
+   CURSEUR PERSONNALISÉ (desktop uniquement)
+   Suit la souris avec un léger retard sur l'anneau
+   ================================================================ */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx=0, my=0, rx=0, ry=0;
 
-    // 1. Gestion du curseur personnalisé
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursor-ring');
+// Mise à jour immédiate de la position de la souris
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-    document.addEventListener('mousemove', (e) => {
-        // Met à jour la position des div sur les coordonnées X et Y de la souris
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        // L'anneau suit avec un léger retard via CSS transition
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
+// Anneau avec inertie (lerp)
+(function animCursor() {
+  rx += (mx - rx) * 0.1;
+  ry += (my - ry) * 0.1;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  ring.style.left   = rx + 'px';
+  ring.style.top    = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+
+// Agrandissement au survol des éléments interactifs
+document.querySelectorAll('a, button, [data-tab], .cert-thumb, .proj-card, .filter-btn, .skills-tab, .skill-tag').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+/* ================================================================
+   HORLOGE TEMPS RÉEL (sidebar)
+   ================================================================ */
+function tick() {
+  const n = new Date();
+  const pad = x => String(x).padStart(2, '0');
+  document.getElementById('clock').textContent =
+    `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+  const days   = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const months = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aoû','Sep','Oct','Nov','Déc'];
+  document.getElementById('dateStr').textContent =
+    `${days[n.getDay()]} ${n.getDate()} ${months[n.getMonth()]} ${n.getFullYear()}`;
+}
+tick();
+setInterval(tick, 1000);
+
+/* ================================================================
+   ONGLETS COMPÉTENCES
+   ================================================================ */
+document.querySelectorAll('.skills-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.skills-tab').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
     });
+    document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
 
-    // 2. Gestion de l'horloge système
-    function updateClock() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        
-        document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-        
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('dateStr').textContent = now.toLocaleDateString('fr-FR', options);
+/* ================================================================
+   FILTRE DES PROJETS
+   Transition fluide : fade-out → filtre → fade-in
+   ================================================================ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.proj-card').forEach(card => {
+      const cats = (card.dataset.cat || '').split(' ');
+      const show = filter === 'all' || cats.includes(filter);
+      if (show) {
+        card.style.display = 'block';
+        // Légère animation au réaffichage
+        card.animate([
+          { opacity: 0, transform: 'scale(0.96)' },
+          { opacity: 1, transform: 'scale(1)' }
+        ], { duration: 260, easing: 'ease', fill: 'forwards' });
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+/* ================================================================
+   MODALE CERTIFICATIONS
+   Ouvre une image en grand, ferme au clic / Escape / bouton
+   ================================================================ */
+const certModal = document.getElementById('certModal');
+const modalImg  = document.getElementById('modalImg');
+
+function openModal(img, alt) {
+  modalImg.src = img;
+  modalImg.alt = alt;
+  certModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  certModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.cert-thumb').forEach(t => {
+  t.addEventListener('click', () => openModal(t.dataset.img, t.dataset.alt));
+  // Accessibilité : ouverture au clavier
+  t.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(t.dataset.img, t.dataset.alt); }
+  });
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+certModal.addEventListener('click', e => { if (e.target === certModal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ================================================================
+   NAVIGATION ACTIVE (Intersection Observer)
+   Met en surbrillance l'entrée de nav correspondant à la section visible
+   ================================================================ */
+const navItems = document.querySelectorAll('[data-nav]');
+const sections = document.querySelectorAll('section[id]');
+
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
     }
-    setInterval(updateClock, 1000); // Mise à jour chaque seconde
-    updateClock();
+  });
+}, { threshold: 0.35 });
 
-    // 3. Protection simple contre le vol d'images ou clic droit (Optionnel pour le style "Hack")
-    document.addEventListener('contextmenu', event => {
-        // event.preventDefault(); // Décommente si tu veux bloquer le clic droit
-    });
+sections.forEach(s => navObserver.observe(s));
+
+/* ================================================================
+   ANIMATIONS D'ENTRÉE DE SECTION
+   Gestion de plusieurs classes : reveal, reveal-left, reveal-right,
+   reveal-scale, reveal-stagger + déclenchement de la ligne de progression
+   ================================================================ */
+const revealClasses = ['.reveal', '.reveal-left', '.reveal-right', '.reveal-scale', '.reveal-stagger'];
+const revealEls = document.querySelectorAll(revealClasses.join(','));
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target); // Ne rejouer qu'une fois
+    }
+  });
+}, { threshold: 0.07 });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Ligne de progression en haut de section
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('section-entered');
+    }
+  });
+}, { threshold: 0.05 });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ================================================================
+   COMPTEURS ANIMÉS (Hero stats)
+   S'activent quand les éléments entrent dans le viewport
+   ================================================================ */
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    if (el.dataset.animated) return;
+    el.dataset.animated = '1';
+
+    const target = parseInt(el.dataset.target);
+    let v = 0;
+    const duration = 900; // ms
+    const steps = target;
+    const interval = Math.floor(duration / steps);
+
+    const step = () => {
+      v++;
+      el.textContent = v;
+      if (v < target) setTimeout(step, interval);
+    };
+    step();
+  });
+}, { threshold: 0.7 });
+
+document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+/* ================================================================
+   MENU MOBILE
+   Toggle sidebar + overlay
+   ================================================================ */
+const sidebar        = document.getElementById('sidebar');
+const mobileToggle   = document.getElementById('mobileToggle');
+const mobileOverlay  = document.getElementById('mobileOverlay');
+
+function openMobileMenu() {
+  sidebar.classList.add('open');
+  mobileToggle.classList.add('open');
+  mobileOverlay.classList.add('open');
+  mobileToggle.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  sidebar.classList.remove('open');
+  mobileToggle.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+  mobileToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+mobileToggle.addEventListener('click', () => {
+  sidebar.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+});
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+// Ferme le menu au clic sur un lien de navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', closeMobileMenu);
+});
+
+/* ================================================================
+   INTERNATIONALISATION (FR / EN)
+   Dictionnaire de traductions, stockage localStorage
+   ================================================================ */
+const T = {
+  nav_home:           { fr: 'ACCUEIL',       en: 'HOME' },
+  nav_about:          { fr: 'À PROPOS',      en: 'ABOUT' },
+  nav_projects:       { fr: 'PROJETS',       en: 'PROJECTS' },
+  nav_skills:         { fr: 'COMPÉTENCES',   en: 'SKILLS' },
+  nav_certifications: { fr: 'CERTIFICATIONS',en: 'CERTIFICATIONS' },
+  nav_contact:        { fr: 'CONTACT',       en: 'CONTACT' },
+  nav_veille:         { fr: 'VEILLE',        en: 'TECH WATCH' },
+  hero_subtitle:      { fr: 'Étudiant en Informatique', en: 'Computer Science Student' },
+  hero_prompt:        { fr: 'whoami',        en: 'whoami' },
+  hero_subtitle_label: { fr: 'Cybersécurité',  en: 'Cybersecurity' },
+  hero_subtitle_label2:{ fr: 'Réseaux',        en: 'Networks' },
+  hero_subtitle_label3:{ fr: 'Développement',  en: 'Development' },
+  stat_projects:      { fr: 'Projets',       en: 'Projects' },
+  stat_years:         { fr: 'Années',        en: 'Years' },
+  stat_certs:         { fr: 'Certifs',       en: 'Certs' },
+  stat_stages:        { fr: 'Stages',        en: 'Internships' },
+  btn_cv:             { fr: '↓ CV.pdf',      en: '↓ CV.pdf' },
+  btn_projects:       { fr: 'Voir les projets →', en: 'View projects →' },
+  btn_contact:        { fr: 'Contact',       en: 'Contact' },
+  status_label:       { fr: 'Disponible — BTS SIO', en: 'Available — BTS SIO' },
+  about_title_acc:    { fr: 'Qui',           en: 'Who' },
+  about_title_rest:   { fr: 'suis-je ?',     en: 'am I?' },
+  about_p1: {
+    fr: "Je m'appelle <strong>Aksil Alem</strong>, j'ai 19 ans et je suis passionné par l'informatique, en particulier par la <strong>cybersécurité</strong> et les <strong>réseaux</strong>. Après avoir obtenu un baccalauréat professionnel CIEL mention Bien, je poursuis actuellement mes études en <strong>BTS SIO</strong>.",
+    en: "My name is <strong>Aksil Alem</strong>, I'm 19 and passionate about computing, especially <strong>cybersecurity</strong> and <strong>networking</strong>. After earning a vocational baccalaureate CIEL with honours, I'm currently studying <strong>BTS SIO</strong>."
+  },
+  about_p2: {
+    fr: "Ce parcours me permet de développer mes compétences techniques et de me préparer à relever de nouveaux défis dans le domaine de l'informatique. Curieux, motivé et rigoureux, je cherche à mettre en pratique mes connaissances au travers de projets concrets et enrichissants.",
+    en: "This path lets me build technical skills and tackle new IT challenges. Curious, driven and detail-oriented, I look to apply my knowledge through concrete, rewarding projects."
+  },
+  about_p3: {
+    fr: "Grâce aux différents stages professionnels que j'ai réalisés depuis la seconde, j'ai pu acquérir de l'expérience concrète dans plusieurs domaines : réseau, support technique et développement.",
+    en: "Through internships since high school, I have gained hands-on experience in networking, technical support and software development."
+  },
+  cv_link:            { fr: '↓ CV',          en: '↓ CV' },
+  synthesis_link:     { fr: 'Tableau de synthèse', en: 'Synthesis table' },
+  proj_title_acc:     { fr: 'Projets',        en: 'Projects' },
+  proj_title_rest:    { fr: 'réalisés',       en: 'completed' },
+  filter_all:         { fr: 'Tous',           en: 'All' },
+  filter_cybersec:    { fr: 'Cybersécurité',  en: 'Cybersecurity' },
+  filter_reseau:      { fr: 'Administration Réseaux', en: 'Network Admin' },
+  filter_ia:          { fr: 'Intelligence Artificielle', en: 'Artificial Intelligence' },
+  filter_autres:      { fr: 'Autres',         en: 'Others' },
+  proj_smartvision_desc: {
+    fr: "Système de surveillance alimenté par l'IA — vision par ordinateur pour la détection des expressions faciales et des mouvements humains en temps réel.",
+    en: "AI-powered surveillance system — computer vision for real-time facial expression and human movement detection with automatic analysis."
+  },
+  proj_ntp_desc: {
+    fr: "Simulation contrôlée de spoofing du protocole NTP — analyse de l'impact sur l'intégrité de la synchronisation temporelle et la sécurité réseau.",
+    en: "Controlled NTP spoofing simulation — analyzing impact on time synchronization integrity and network security in a test environment."
+  },
+  proj_sqli_desc: {
+    fr: "Analyse et exploitation pratique des vulnérabilités par injection SQL dans un environnement contrôlé — comprendre les failles web et les vecteurs d'attaque.",
+    en: "Practical analysis and exploitation of SQL Injection vulnerabilities in a controlled environment — understanding web security flaws and attack vectors."
+  },
+  proj_ctf_name: { fr: "Passe Ton Hack D'abord", en: "Passe Ton Hack D'abord" },
+  proj_ctf_desc: {
+    fr: "Compétition CTF organisée par le gouvernement français — challenges en cryptographie, sécurité web, reverse engineering et exploitation système.",
+    en: "CTF competition organised by the French Government — challenges in cryptography, web security, reverse engineering and system exploitation in a team environment."
+  },
+  proj_glpi_desc: {
+    fr: "Déploiement d'une plateforme ITSM conteneurisée avec Docker Compose — gestion de parc, suivi d'inventaires et ticketing opérationnel centralisé.",
+    en: "Deployed a Docker-based ITSM platform — streamlining inventory tracking, asset management and centralised ticketing operations."
+  },
+  proj_ultimax_desc: {
+    fr: "Outil OSINT de sécurité — IP lookup, détection de fuites d'emails et récupération d'informations publiques à des fins d'investigation cybersécurité.",
+    en: "OSINT security analysis tool — IP intelligence lookup, email breach detection and public data retrieval for cybersecurity investigations."
+  },
+  proj_portfolio_desc: {
+    fr: "Site portfolio personnel — design hacker terminal en HTML/CSS/JS vanille, bilingue FR/EN, avec effets glitch, cursor custom et animations.",
+    en: "Personal portfolio website — hacker terminal design in vanilla HTML/CSS/JS, bilingual FR/EN with glitch effects, custom cursor and animations."
+  },
+  proj_blood_desc: {
+    fr: "Jeu vidéo 2D — horreur psychologique &amp; shooter top-down. Gameplay, level design et moteur custom développés en GDScript.",
+    en: "2D game — psychological horror &amp; top-down shooter. Gameplay, level design and custom engine built in GDScript with Godot."
+  },
+  proj_lab_desc: {
+    fr: "Environnement de lab hacking isolé sous Docker — machines vulnérables, réseaux segmentés et toolchain offensive intégrée avec Kali Linux.",
+    en: "Isolated Docker hacking lab — vulnerable machines, segmented networks and integrated offensive toolchain with Kali Linux."
+  },
+  proj_llm_desc: {
+    fr: "Déploiement et fine-tuning d'un LLM local via Ollama — inférence offline, personnalisation du modèle et interface de test interactive.",
+    en: "Local LLM deployment and fine-tuning via Ollama — offline inference, model customisation and interactive testing interface."
+  },
+  /* ── Nouveaux projets (ajoutés avril 2026) ── */
+  proj_nmap_name: { fr: 'Analyse de vulnérabilités', en: 'Vulnerability Analysis' },
+  proj_nmap_desc: {
+    fr: "Identification et analyse de vulnérabilités réseau et web avec Nmap et Nikto — cartographie des ports ouverts, détection de services exposés et rapport de surface d'attaque.",
+    en: "Network and web vulnerability identification with Nmap and Nikto — open port mapping, exposed service detection and attack surface reporting."
+  },
+  proj_dhcp_name: { fr: 'Serveur DHCP Debian', en: 'Debian DHCP Server' },
+  proj_dhcp_desc: {
+    fr: "Mise en place d'un serveur DHCP sous Debian en environnement d'infrastructure réseau — configuration des plages d'adresses, réservations statiques et gestion des baux dynamiques.",
+    en: "DHCP server deployment on Debian in a network infrastructure environment — IP range configuration, static reservations and dynamic lease management."
+  },
+  proj_spam_name: { fr: 'Détecteur de Spam', en: 'Spam Detector' },
+  proj_spam_desc: {
+    fr: "Détecteur de spam développé en Python sous Ubuntu — modèle de classification NLP entraîné pour filtrer automatiquement les messages indésirables avec apprentissage automatique.",
+    en: "Python spam detector built on Ubuntu — trained NLP classification model for automatic filtering of unwanted messages using machine learning."
+  },
+  proj_ad_name: { fr: 'Active Directory', en: 'Active Directory' },
+  proj_ad_desc: {
+    fr: "Déploiement et administration d'un Active Directory sous Windows Server — création d'unités organisationnelles, gestion des utilisateurs, groupes, GPO et politiques de sécurité de domaine.",
+    en: "Active Directory deployment and administration on Windows Server — organisational unit creation, user and group management, GPO and domain security policies."
+  },
+  skills_title_acc:  { fr: 'Stack',            en: 'Tech' },
+  skills_title_rest: { fr: 'technique',         en: 'stack' },
+  cert_title_acc:    { fr: 'Certifications',    en: 'Certifications' },
+  cert_title_rest:   { fr: '& badges',          en: '& badges' },
+  cnil_name:         { fr: 'CNIL',              en: 'CNIL' },
+  cnil_sub:          { fr: "Commission nationale de l'informatique et des libertés", en: 'French Data Protection Authority' },
+  st_done:           { fr: 'Obtenu',            en: 'Obtained' },
+  st_wip:            { fr: 'En cours',          en: 'In progress' },
+  consult_certs:     { fr: 'Consulter toutes mes certifications', en: 'View all my certifications' },
+  contact_title_acc: { fr: 'Me',                en: 'Get in' },
+  contact_title_rest:{ fr: 'contacter',         en: 'touch' },
+  contact_line: {
+    fr: "Étudiant en BTS SIO, <strong>disponible</strong> pour stages, alternances ou collaborations dans le domaine de la <strong>cybersécurité</strong> et des <strong>réseaux</strong>.",
+    en: "BTS SIO student, <strong>available</strong> for internships, apprenticeships or collaborations in <strong>cybersecurity</strong> and <strong>networking</strong>."
+  },
+  veille_title_acc:  { fr: 'Veille',            en: 'Tech' },
+  veille_title_rest: { fr: 'technologique',      en: 'watch' },
+  veille_desc: {
+    fr: "Suivi régulier de l'actualité en cybersécurité, nouvelles vulnérabilités, évolutions des protocoles réseau et tendances du secteur informatique.",
+    en: "Regular monitoring of cybersecurity news, new vulnerabilities, network protocol updates and IT industry trends."
+  },
+  consult_veille: { fr: 'Consulter ma veille',  en: 'View my tech watch' },
+};
+
+let lang = localStorage.getItem('portfolio-lang') || 'fr';
+
+function applyLang(l) {
+  lang = l;
+  localStorage.setItem('portfolio-lang', l);
+  document.documentElement.lang = l === 'en' ? 'en' : 'fr';
+
+  // Application des traductions
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (T[key] && T[key][l]) el.innerHTML = T[key][l];
+  });
+
+  // Mise à jour du bouton de langue (drapeau + label)
+  const ukSvg = `<svg width="20" height="12" viewBox="0 0 60 30"><clipPath id="sc2"><rect width="60" height="30" rx="2"/></clipPath><g clip-path="url(#sc2)"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="4"/><path d="M30 0L30 30M0 15L60 15" stroke="#fff" stroke-width="10"/><path d="M30 0L30 30M0 15L60 15" stroke="#C8102E" stroke-width="6"/></g></svg>`;
+  const frSvg = `<svg width="20" height="12" viewBox="0 0 60 30"><rect width="60" height="30" rx="2" fill="#eee"/><rect x="0" width="20" height="30" fill="#0055A4"/><rect x="40" width="20" height="30" fill="#EF4135"/></svg>`;
+  document.getElementById('langFlag').innerHTML = l === 'fr' ? ukSvg : frSvg;
+  document.getElementById('langLabel').textContent = l === 'fr' ? 'EN' : 'FR';
+}
+
+// Toggle langue au clic ou touche L
+document.getElementById('langToggle').addEventListener('click', () => applyLang(lang === 'fr' ? 'en' : 'fr'));
+document.addEventListener('keydown', e => {
+  if (e.key.toLowerCase() === 'l' && !e.target.matches('input, textarea')) {
+    applyLang(lang === 'fr' ? 'en' : 'fr');
+  }
+});
+
+// Initialisation de la langue
+applyLang(lang);
+
+/* ================================================================
+   HERO : section #home entrée immédiate
+   ================================================================ */
+document.querySelector('#home').classList.add('section-entered');
 </script>
-
 </body>
 </html>
