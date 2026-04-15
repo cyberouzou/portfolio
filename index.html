@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
   ════════════════════════════════════════════════════════════════════
@@ -2005,12 +2006,12 @@
 
         <div class="h-stat" role="listitem">
           <span class="n" data-target="5" aria-label="5 années">0</span>
-          <span class="l" data-i18n="stat_years">Années</span>
+          <span class="l" data-i18n="stat_years">Années d'expérience</span>
         </div>
 
         <div class="h-stat" role="listitem">
           <span class="n" data-target="10" aria-label="10 certifications">0</span>
-          <span class="l" data-i18n="stat_certs">Certifs</span>
+          <span class="l" data-i18n="stat_certs">Certifications</span>
         </div>
 
         <div class="h-stat" role="listitem">
@@ -2078,7 +2079,7 @@
           <!-- Paragraphe 3 : expériences en stage -->
           <p data-i18n="about_p3">Grâce aux différents stages professionnels que j'ai réalisés depuis la seconde, j'ai pu acquérir de l'expérience concrète dans plusieurs domaines : réseau, support technique et développement.</p>
 
-          <!-- Liens de téléchargement : CV + tableau de synthèse -->
+          <!-- Liens de téléchargement : CV + tableau de synthèse + rapport de stage -->
           <div class="about-links">
             <a href="https://drive.google.com/file/d/1-ebyKW6WkK_Q399vLxjhLgsHNyfnISzN/view?usp=drive_link"
                class="about-link" target="_blank" rel="noopener"
@@ -2086,6 +2087,10 @@
             <a href="https://drive.google.com/file/d/1IkO_LNQpJjW6WP8ZynEVIfFj6xGZH2Is/view?usp=drive_link"
                class="about-link" target="_blank" rel="noopener"
                data-i18n="synthesis_link">Tableau de synthèse</a>
+            <!-- Rapport de stage → Google Docs (ouverture dans un nouvel onglet) -->
+            <a href="https://docs.google.com/document/d/1Xqmlyq3HdMoDPlLFgMYNzY2K6GHSRqGRHOId1Lzc7Rk/edit?usp=sharing"
+               class="about-link" target="_blank" rel="noopener"
+               data-i18n="internship_link">Rapport de stage</a>
           </div>
 
         </div><!-- fin .about-text -->
@@ -2157,47 +2162,12 @@
       <!-- Grille de projets avec animation en cascade (.reveal-stagger) -->
       <div class="projects-grid reveal-stagger" id="projectsGrid">
 
-        <!-- ── PROJ_01 : Reverse Proxy HTTPS Pfsense ─────────────────
-             Catégorie : reseau (Administration Réseaux)
-             Accent : bleu (accent-blue) — couleur des projets réseau
-             Pas de lien externe (pas de .proj-arrow ni de <a>)
+        <!-- ── PROJ_03 : LXC── PROJ_03 : LXC sous Proxmox ────────────────────────────
+             Catégorie : reseau
+             Accent : bleu
         ──────────────────────────────────────────────────────────── -->
         <div class="proj-card accent-blue" data-cat="reseau">
           <span class="proj-idx">./proj_01</span>
-          <div class="proj-name" data-i18n="proj_pfsense_name">Reverse Proxy HTTPS sous Pfsense</div>
-          <div class="proj-desc" data-i18n="proj_pfsense_desc">Configuration d'un reverse proxy HTTPS sécurisé avec Pfsense — gestion des certificats SSL, redirection du trafic entrant et durcissement de la surface d'exposition.</div>
-          <div class="proj-tags">
-            <span class="proj-tag">Pfsense</span>
-            <span class="proj-tag">HTTPS</span>
-            <span class="proj-tag">SSL/TLS</span>
-            <span class="proj-tag">Réseau</span>
-            <span class="proj-tag">Firewall</span>
-          </div>
-        </div>
-
-        <!-- ── PROJ_02 : Supervision Zabbix ──────────────────────────
-             Catégorie : reseau
-             Accent : bleu
-        ──────────────────────────────────────────────────────────── -->
-        <div class="proj-card accent-blue" data-cat="reseau">
-          <span class="proj-idx">./proj_02</span>
-          <div class="proj-name" data-i18n="proj_zabbix_name">Serveur de supervision Zabbix</div>
-          <div class="proj-desc" data-i18n="proj_zabbix_desc">Mise en place d'un serveur de supervision Zabbix sous Ubuntu — monitoring des équipements réseau, alertes temps réel et tableaux de bord de disponibilité d'infrastructure.</div>
-          <div class="proj-tags">
-            <span class="proj-tag">Zabbix</span>
-            <span class="proj-tag">Ubuntu</span>
-            <span class="proj-tag">Monitoring</span>
-            <span class="proj-tag">SNMP</span>
-            <span class="proj-tag">Infra</span>
-          </div>
-        </div>
-
-        <!-- ── PROJ_03 : LXC sous Proxmox ────────────────────────────
-             Catégorie : reseau
-             Accent : bleu
-        ──────────────────────────────────────────────────────────── -->
-        <div class="proj-card accent-blue" data-cat="reseau">
-          <span class="proj-idx">./proj_03</span>
           <div class="proj-name" data-i18n="proj_lxc_name">Conteneurisation LXC sous Proxmox</div>
           <div class="proj-desc" data-i18n="proj_lxc_desc">Déploiement et gestion de conteneurs LXC (Linux) sous Proxmox VE — isolation des services, gestion des ressources et segmentation réseau d'une infrastructure virtualisée.</div>
           <div class="proj-tags">
@@ -2214,14 +2184,13 @@
              Accent : rouge (accent-red) — couleur des projets offensifs
         ──────────────────────────────────────────────────────────── -->
         <div class="proj-card accent-red" data-cat="cybersec">
-          <span class="proj-idx">./proj_04</span>
+          <span class="proj-idx">./proj_02</span>
           <div class="proj-name" data-i18n="proj_ettercap_name">Spoofing de serveur NTP</div>
           <div class="proj-desc" data-i18n="proj_ettercap_desc">Simulation contrôlée de spoofing NTP avec Ettercap sous Kali Linux — analyse de l'impact sur la synchronisation temporelle des systèmes et exploitation des vecteurs d'attaque man-in-the-middle.</div>
           <div class="proj-tags">
             <span class="proj-tag">NTP</span>
             <span class="proj-tag">Ettercap</span>
             <span class="proj-tag">Kali</span>
-            <span class="proj-tag">MITM</span>
             <span class="proj-tag">Pentest</span>
           </div>
         </div>
@@ -2233,12 +2202,11 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/drive/folders/15esmbh-Kn7v8KQjk9uTjA0uA73sZyxmN?usp=sharing"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_05</span>
+          <span class="proj-idx">./proj_03</span>
           <div class="proj-name">Naibed CTF</div>
-          <div class="proj-desc" data-i18n="proj_naibed_desc">Compétition CTF — challenges en cryptographie, sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.</div>
+          <div class="proj-desc" data-i18n="proj_naibed_desc">Compétition CTF — challenges en sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.</div>
           <div class="proj-tags">
             <span class="proj-tag">CTF</span>
-            <span class="proj-tag">Crypto</span>
             <span class="proj-tag">Forensics</span>
             <span class="proj-tag">Rev</span>
             <span class="proj-tag">Web Sec</span>
@@ -2252,7 +2220,7 @@
              Pas de lien externe (pas de documentation publique)
         ──────────────────────────────────────────────────────────── -->
         <div class="proj-card" data-cat="cybersec">
-          <span class="proj-idx">./proj_06</span>
+          <span class="proj-idx">./proj_04</span>
           <div class="proj-name" data-i18n="proj_ctf_name">Passe Ton Hack D'abord</div>
           <div class="proj-desc" data-i18n="proj_ctf_desc">Compétition CTF organisée par le gouvernement français — challenges en cryptographie, sécurité web, reverse engineering et exploitation système.</div>
           <div class="proj-tags">
@@ -2271,14 +2239,13 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1LPYJ7aJZ8EKuXrg2lgKHm2-iE8A__-YJ/view?usp=drive_link"
            class="proj-card accent-blue" target="_blank" rel="noopener" data-cat="reseau">
-          <span class="proj-idx">./proj_07</span>
+          <span class="proj-idx">./proj_05</span>
           <div class="proj-name" data-i18n="proj_ocs_name">Agent OCS Inventory sous Ubuntu</div>
           <div class="proj-desc" data-i18n="proj_ocs_desc">Mise en place d'un agent OCS Inventory NG sous Ubuntu via WSL2 — inventaire automatisé des postes, remontée des informations matérielles et logicielles vers le serveur central.</div>
           <div class="proj-tags">
             <span class="proj-tag">OCS Inventory</span>
             <span class="proj-tag">Ubuntu</span>
             <span class="proj-tag">WSL2</span>
-            <span class="proj-tag">ITSM</span>
             <span class="proj-tag">Inventaire</span>
           </div>
           <span class="proj-arrow" aria-hidden="true">↗</span>
@@ -2291,7 +2258,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1kc7uqmF62StflPtqCsDlZka1cSjDldo9/view?usp=drive_link"
            class="proj-card accent-amber" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_08</span>
+          <span class="proj-idx">./proj_06</span>
           <div class="proj-name" data-i18n="proj_canary_name">Honeypot OpenCanary</div>
           <div class="proj-desc" data-i18n="proj_canary_desc">Mise en place d'un honeypot OpenCanary sous Debian — détection des intrusions réseau, journalisation des tentatives d'accès et analyse comportementale des attaquants.</div>
           <div class="proj-tags">
@@ -2310,14 +2277,13 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1IMWPzwvT7od7Smh-RvENNLFjiozQfRO_/view?usp=drive_link"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_09</span>
+          <span class="proj-idx">./proj_07</span>
           <div class="proj-name" data-i18n="proj_veille_name">Veille — Fuites de données</div>
           <div class="proj-desc" data-i18n="proj_veille_desc">Veille technologique sur la surveillance des fuites de données sur Internet et le dark web — méthodologie de suivi des compromissions, sources OSINT et outils de détection d'exposition.</div>
           <div class="proj-tags">
             <span class="proj-tag">Dark Web</span>
             <span class="proj-tag">OSINT</span>
             <span class="proj-tag">Data Leak</span>
-            <span class="proj-tag">Threat Intel</span>
           </div>
           <span class="proj-arrow" aria-hidden="true">↗</span>
         </a>
@@ -2329,7 +2295,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://aksil.alwaysdata.net"
            class="proj-card accent-blue" target="_blank" rel="noopener" data-cat="autres">
-          <span class="proj-idx">./proj_10</span>
+          <span class="proj-idx">./proj_08</span>
           <div class="proj-name">ALEM.SYS Portfolio</div>
           <div class="proj-desc" data-i18n="proj_portfolio_desc">Site portfolio personnel — design hacker terminal en HTML/CSS/JS vanille, bilingue FR/EN, avec effets glitch, cursor custom et animations.</div>
           <div class="proj-tags">
@@ -2347,7 +2313,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://cyberouzou.github.io/ultimaxsearch/"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_11</span>
+          <span class="proj-idx">./proj_09</span>
           <div class="proj-name">Ultimax Search</div>
           <div class="proj-desc" data-i18n="proj_ultimax_desc">Moteur de veille sur les compromissions d'adresses mail et IP — outil OSINT de sécurité pour l'investigation cybersécurité et la détection de fuites de données.</div>
           <div class="proj-tags">
@@ -2356,6 +2322,37 @@
             <span class="proj-tag">Cybersec</span>
             <span class="proj-tag">JS</span>
             <span class="proj-tag">Data Leak</span>
+          </div>
+          <span class="proj-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- ── PROJ_12 : Mini cloud privé Nextcloud ──────────────────
+             Catégorie : reseau | Accent : bleu
+        ──────────────────────────────────────────────────────────── -->
+        <div class="proj-card accent-blue" data-cat="reseau">
+          <span class="proj-idx">./proj_10</span>
+          <div class="proj-name" data-i18n="proj_nextcloud_name">Mini cloud privé avec Nextcloud</div>
+          <div class="proj-desc" data-i18n="proj_nextcloud_desc">Création d'un mini cloud privé auto-hébergé avec Nextcloud — stockage et partage de fichiers sécurisé, gestion des utilisateurs et accès distant chiffré.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Nextcloud</span>
+            <span class="proj-tag">Cloud</span>
+            <span class="proj-tag">Infra</span>
+          </div>
+        </div>
+
+        <!-- ── PROJ_13 : Reverse Proxy via réseau Tor ────────────────
+             Catégorie : cybersec | Accent : ambre
+        ──────────────────────────────────────────────────────────── -->
+        <a href="https://drive.google.com/file/d/1YsxyDqjxnUr07fQxOSpISvpuwOWh5Wsq/view"
+           class="proj-card accent-amber" target="_blank" rel="noopener" data-cat="cybersec">
+          <span class="proj-idx">./proj_11</span>
+          <div class="proj-name" data-i18n="proj_tor_name">Serveur web anonymisé via réseau Tor</div>
+          <div class="proj-desc" data-i18n="proj_tor_desc">Mise en place d'un reverse proxy simplifié via le réseau Tor — anonymisation du trafic, exposition de services internes sans IP publique et contournement de la censure réseau.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Tor</span>
+            <span class="proj-tag">Proxy</span>
+            <span class="proj-tag">Anonymat</span>
+            <span class="proj-tag">Réseau</span>
           </div>
           <span class="proj-arrow" aria-hidden="true">↗</span>
         </a>
@@ -2391,19 +2388,21 @@
       <div class="skills-layout">
 
         <!-- ── Colonne d'onglets (tablist) ─────────────────────────
+             3 onglets : Infrastructure Réseaux & Sécurité,
+             Virtualisation & Environnements, Programmation.
              Chaque bouton a data-tab="id-du-panneau" →
              le JS utilise cette valeur pour afficher/cacher le bon panneau.
              aria-controls="id" pointe vers le panneau correspondant.
         ────────────────────────────────────────────────────────── -->
         <div class="skills-tabs-col" role="tablist" aria-label="Catégories de compétences">
 
-          <!-- Onglet 1 : Infrastructure (actif par défaut) -->
+          <!-- Onglet 1 : Infrastructure Réseaux & Sécurité (actif par défaut) -->
           <button class="skills-tab active" data-tab="s-net"
                   role="tab" aria-selected="true" aria-controls="s-net">
             <span class="tab-icon" aria-hidden="true">▸</span> Infrastructure
           </button>
 
-          <!-- Onglet 2 : Virtualisation -->
+          <!-- Onglet 2 : Virtualisation & Environnements -->
           <button class="skills-tab" data-tab="s-virt"
                   role="tab" aria-selected="false" aria-controls="s-virt">
             <span class="tab-icon" aria-hidden="true">▸</span> Virtualisation
@@ -2415,12 +2414,6 @@
             <span class="tab-icon" aria-hidden="true">▸</span> Programmation
           </button>
 
-          <!-- Onglet 4 : Cybersécurité -->
-          <button class="skills-tab" data-tab="s-sec"
-                  role="tab" aria-selected="false" aria-controls="s-sec">
-            <span class="tab-icon" aria-hidden="true">▸</span> Cybersécurité
-          </button>
-
         </div><!-- fin .skills-tabs-col -->
 
         <!-- ── Colonne de contenu des panneaux ──────────────────────
@@ -2429,93 +2422,156 @@
         ────────────────────────────────────────────────────────── -->
         <div class="skills-panel-col">
 
-          <!-- PANNEAU INFRASTRUCTURE / RÉSEAU (actif par défaut) -->
+          <!-- ══════════════════════════════════════════════════════
+               PANNEAU 1 — INFRASTRUCTURE RÉSEAUX & SÉCURITÉ
+               ══════════════════════════════════════════════════════
+               Actif par défaut.
+               8 groupes thématiques correspondant exactement
+               aux compétences déclarées dans le CV :
+                 1. Protocoles       → TCP/IP
+                 2. Architecture     → LAN, WAN, VLAN
+                 3. Routage          → statique + dynamique
+                 4. Services réseau  → DHCP, DNS, ICMP, NAT
+                 5. Équipements      → Switches & Routeurs
+                 6. Accès sécurisé   → VPN, Proxy, Pare-feu
+                 7. Microsoft        → AD, GPO/GPP
+                 8. Outils analyse   → Wireshark, Packet Tracer, Docker
+          ══════════════════════════════════════════════════════ -->
           <div class="skills-panel active" id="s-net" role="tabpanel">
 
-            <!-- Groupe 1 : Protocoles et architecture réseau -->
             <div class="skill-group">
-              <div class="skill-group-label">Protocoles &amp; Architecture</div>
+              <div class="skill-group-label">Protocoles</div>
               <div class="skill-tags">
                 <span class="skill-tag">TCP/IP</span>
-                <span class="skill-tag">LAN / WAN</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Architecture réseau</div>
+              <div class="skill-tags">
+                <span class="skill-tag">LAN</span>
+                <span class="skill-tag">WAN</span>
                 <span class="skill-tag">VLAN</span>
-                <span class="skill-tag">DHCP</span>
-                <span class="skill-tag">DNS</span>
-                <span class="skill-tag">NTP</span>
-                <span class="skill-tag">ICMP</span>
-                <span class="skill-tag">NAT</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Routage</div>
+              <div class="skill-tags">
                 <span class="skill-tag">Routage statique</span>
                 <span class="skill-tag">Routage dynamique</span>
               </div>
             </div>
 
-            <!-- Groupe 2 : Accès sécurisé et annuaire (.m = couleur bleue au hover) -->
+            <div class="skill-group">
+              <div class="skill-group-label">Services &amp; protocoles réseau</div>
+              <div class="skill-tags">
+                <span class="skill-tag">DHCP</span>
+                <span class="skill-tag">DNS</span>
+                <span class="skill-tag">ICMP</span>
+                <span class="skill-tag">NAT</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Équipements &amp; configuration</div>
+              <div class="skill-tags">
+                <span class="skill-tag y">Switches &amp; Routeurs</span>
+              </div>
+            </div>
+
             <div class="skill-group">
               <div class="skill-group-label">Accès sécurisé</div>
               <div class="skill-tags">
                 <span class="skill-tag m">VPN</span>
                 <span class="skill-tag m">Proxy</span>
                 <span class="skill-tag m">Pare-feu</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Environnement Microsoft</div>
+              <div class="skill-tags">
                 <span class="skill-tag m">Active Directory</span>
                 <span class="skill-tag m">GPO / GPP</span>
               </div>
             </div>
 
-            <!-- Groupe 3 : Outils réseau (.y = couleur ambre au hover) -->
             <div class="skill-group">
-              <div class="skill-group-label">Outils</div>
+              <div class="skill-group-label">Analyse, simulation &amp; environnements</div>
               <div class="skill-tags">
-                <span class="skill-tag y">Switches &amp; Routeurs</span>
                 <span class="skill-tag y">Wireshark</span>
                 <span class="skill-tag y">Cisco Packet Tracer</span>
-                <span class="skill-tag y">Scapy</span>
-                <span class="skill-tag y">Zabbix</span>
-                <span class="skill-tag y">Pfsense</span>
+                <span class="skill-tag y">Docker</span>
               </div>
             </div>
 
           </div><!-- fin #s-net -->
 
-          <!-- PANNEAU VIRTUALISATION -->
+          <!-- ══════════════════════════════════════════════════════
+               PANNEAU 2 — VIRTUALISATION & ENVIRONNEMENTS
+               ══════════════════════════════════════════════════════
+               4 groupes :
+                 1. Création & gestion de VM
+                    → Déploiement, configuration, administration
+                 2. Outils
+                    → VMware Workstation, Oracle VirtualBox, Proxmox VE
+                 3. Systèmes virtualisés
+                    → Linux (Ubuntu, Debian, Kali), Windows
+                 4. Réseau virtualisé
+                    → Configuration NAT, Bridge, VLAN
+          ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-virt" role="tabpanel">
 
             <div class="skill-group">
-              <div class="skill-group-label">Hyperviseurs &amp; Conteneurs</div>
+              <div class="skill-group-label">Création &amp; gestion de machines virtuelles</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Déploiement</span>
+                <span class="skill-tag">Configuration</span>
+                <span class="skill-tag">Administration</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Outils</div>
               <div class="skill-tags">
                 <span class="skill-tag">VMware Workstation</span>
                 <span class="skill-tag">Oracle VirtualBox</span>
                 <span class="skill-tag">Proxmox VE</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">Docker Compose</span>
-                <span class="skill-tag">LXC</span>
               </div>
             </div>
 
             <div class="skill-group">
               <div class="skill-group-label">Systèmes virtualisés</div>
               <div class="skill-tags">
-                <span class="skill-tag m">Ubuntu</span>
-                <span class="skill-tag m">Debian</span>
-                <span class="skill-tag m">Kali Linux</span>
-                <span class="skill-tag m">Windows Server</span>
-                <span class="skill-tag m">Windows 10/11</span>
+                <!-- Linux englobe Ubuntu, Debian et Kali Linux -->
+                <span class="skill-tag m">Linux (Ubuntu, Debian, Kali)</span>
+                <!-- Windows englobe Windows Server et Windows 10/11 -->
+                <span class="skill-tag m">Windows</span>
               </div>
             </div>
 
             <div class="skill-group">
               <div class="skill-group-label">Réseau virtualisé</div>
               <div class="skill-tags">
-                <span class="skill-tag y">NAT</span>
+                <span class="skill-tag y">Configuration NAT</span>
                 <span class="skill-tag y">Bridge</span>
                 <span class="skill-tag y">VLAN virtualisé</span>
-                <span class="skill-tag y">Réseau isolé</span>
-                <span class="skill-tag y">WSL2</span>
               </div>
             </div>
 
           </div><!-- fin #s-virt -->
 
-          <!-- PANNEAU PROGRAMMATION -->
+          <!-- ══════════════════════════════════════════════════════
+               PANNEAU 3 — PROGRAMMATION
+               ══════════════════════════════════════════════════════
+               5 groupes :
+                 1. Web       → HTML, CSS, JavaScript
+                 2. Backend   → PHP
+                 3. BDD       → SQL, Cypher (Neo4j)
+                 4. Scripting → Shell, Bash, Batch, Python
+                 5. Comp.     → C++
+          ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-prog" role="tabpanel">
 
             <div class="skill-group">
@@ -2524,6 +2580,12 @@
                 <span class="skill-tag">HTML</span>
                 <span class="skill-tag">CSS</span>
                 <span class="skill-tag">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Backend</div>
+              <div class="skill-tags">
                 <span class="skill-tag">PHP</span>
               </div>
             </div>
@@ -2532,6 +2594,7 @@
               <div class="skill-group-label">Bases de données</div>
               <div class="skill-tags">
                 <span class="skill-tag m">SQL</span>
+                <!-- Cypher : langage de requête des bases de données graphes Neo4j -->
                 <span class="skill-tag m">Cypher (Neo4j)</span>
               </div>
             </div>
@@ -2539,58 +2602,21 @@
             <div class="skill-group">
               <div class="skill-group-label">Scripting &amp; Automatisation</div>
               <div class="skill-tags">
-                <span class="skill-tag y">Shell / Bash</span>
+                <span class="skill-tag y">Shell</span>
+                <span class="skill-tag y">Bash</span>
                 <span class="skill-tag y">Batch</span>
                 <span class="skill-tag y">Python</span>
-                <span class="skill-tag y">C++</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-group-label">Langages complémentaires</div>
+              <div class="skill-tags">
+                <span class="skill-tag p">C++</span>
               </div>
             </div>
 
           </div><!-- fin #s-prog -->
-
-          <!-- PANNEAU CYBERSÉCURITÉ -->
-          <div class="skills-panel" id="s-sec" role="tabpanel">
-
-            <!-- Techniques offensives -->
-            <div class="skill-group">
-              <div class="skill-group-label">Offensif</div>
-              <div class="skill-tags">
-                <span class="skill-tag">SQLi</span>
-                <span class="skill-tag">XSS</span>
-                <span class="skill-tag">NTP Spoofing</span>
-                <span class="skill-tag">CTF</span>
-                <span class="skill-tag">OSINT</span>
-                <span class="skill-tag">MITM</span>
-              </div>
-            </div>
-
-            <!-- Outils de pentesting (.m = bleu au hover) -->
-            <div class="skill-group">
-              <div class="skill-group-label">Outils offensifs</div>
-              <div class="skill-tags">
-                <span class="skill-tag m">BurpSuite</span>
-                <span class="skill-tag m">Nmap</span>
-                <span class="skill-tag m">Metasploit</span>
-                <span class="skill-tag m">Scapy</span>
-                <span class="skill-tag m">Ettercap</span>
-                <span class="skill-tag m">Kali Linux</span>
-              </div>
-            </div>
-
-            <!-- Défense et analyse (.y = ambre au hover) -->
-            <div class="skill-group">
-              <div class="skill-group-label">Défensif &amp; Analyse</div>
-              <div class="skill-tags">
-                <span class="skill-tag y">Pare-feu</span>
-                <span class="skill-tag y">Honeypot</span>
-                <span class="skill-tag y">Wireshark</span>
-                <span class="skill-tag y">RGPD / CNIL</span>
-                <span class="skill-tag y">Network Defense</span>
-                <span class="skill-tag y">IDS / IPS</span>
-              </div>
-            </div>
-
-          </div><!-- fin #s-sec -->
 
         </div><!-- fin .skills-panel-col -->
 
@@ -3409,9 +3435,9 @@
     hero_subtitle_label2:{ fr: 'Réseaux',                   en: 'Networks' },
     hero_subtitle_label3:{ fr: 'Développement',             en: 'Development' },
     stat_projects:       { fr: 'Projets',                   en: 'Projects' },
-    stat_years:          { fr: 'Années',                    en: 'Years' },
-    stat_certs:          { fr: 'Certifs',                   en: 'Certs' },
-    stat_stages:         { fr: 'Stages',                    en: 'Internships' },
+    stat_years:          { fr: 'Années d\'expérience',      en: 'Years of experience' },
+    stat_certs:          { fr: 'Certifications',             en: 'Certifications' },
+    stat_stages:         { fr: 'Stages',                     en: 'Internships' },
     btn_cv:              { fr: '↓ CV.pdf',                  en: '↓ CV.pdf' },
     btn_projects:        { fr: 'Voir les projets →',        en: 'View projects →' },
     btn_contact:         { fr: 'Contact',                   en: 'Contact' },
@@ -3433,6 +3459,7 @@
       en: "Through internships since high school, I have gained hands-on experience in networking, technical support and software development."
     },
     cv_link:       { fr: '↓ CV', en: '↓ CV' },
+    internship_link:{ fr: 'Rapport de stage', en: 'Internship report' },
     synthesis_link:{ fr: 'Tableau de synthèse', en: 'Synthesis table' },
 
     /* Projets */
@@ -3444,16 +3471,6 @@
     filter_autres:   { fr: 'Autres',                  en: 'Others' },
 
     /* Descriptions des projets */
-    proj_pfsense_name: { fr: 'Reverse Proxy HTTPS sous Pfsense', en: 'HTTPS Reverse Proxy with Pfsense' },
-    proj_pfsense_desc: {
-      fr: "Configuration d'un reverse proxy HTTPS sécurisé avec Pfsense — gestion des certificats SSL, redirection du trafic entrant et durcissement de la surface d'exposition.",
-      en: "Secure HTTPS reverse proxy configuration with Pfsense — SSL certificate management, inbound traffic routing and attack surface hardening."
-    },
-    proj_zabbix_name: { fr: 'Serveur de supervision Zabbix', en: 'Zabbix Monitoring Server' },
-    proj_zabbix_desc: {
-      fr: "Mise en place d'un serveur de supervision Zabbix sous Ubuntu — monitoring des équipements réseau, alertes temps réel et tableaux de bord de disponibilité d'infrastructure.",
-      en: "Zabbix monitoring server deployment on Ubuntu — network device monitoring, real-time alerts and infrastructure availability dashboards."
-    },
     proj_lxc_name: { fr: 'Conteneurisation LXC sous Proxmox', en: 'LXC Containers on Proxmox' },
     proj_lxc_desc: {
       fr: "Déploiement et gestion de conteneurs LXC (Linux) sous Proxmox VE — isolation des services, gestion des ressources et segmentation réseau d'une infrastructure virtualisée.",
@@ -3465,8 +3482,8 @@
       en: "Controlled NTP spoofing simulation with Ettercap on Kali Linux — impact analysis on system time synchronisation and man-in-the-middle attack vector exploitation."
     },
     proj_naibed_desc: {
-      fr: "Compétition CTF — challenges en cryptographie, sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.",
-      en: "CTF competition — challenges in cryptography, web security, reverse engineering, steganography and system exploitation in a team environment."
+      fr: "Compétition CTF — challenges en sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.",
+      en: "CTF competition — challenges in web security, reverse engineering, steganography and system exploitation in a team environment."
     },
     proj_ctf_name: { fr: "Passe Ton Hack D'abord", en: "Passe Ton Hack D'abord" },
     proj_ctf_desc: {
@@ -3495,6 +3512,17 @@
     proj_ultimax_desc: {
       fr: "Moteur de veille sur les compromissions d'adresses mail et IP — outil OSINT de sécurité pour l'investigation cybersécurité et la détection de fuites de données.",
       en: "Mail address and IP compromise watch engine — OSINT security tool for cybersecurity investigation and data leak detection."
+    },
+
+    proj_nextcloud_name: { fr: 'Mini cloud privé avec Nextcloud', en: 'Private Mini Cloud with Nextcloud' },
+    proj_nextcloud_desc: {
+      fr: "Création d'un mini cloud privé auto-hébergé avec Nextcloud — stockage et partage de fichiers sécurisé, gestion des utilisateurs et accès distant chiffré.",
+      en: "Creation of a self-hosted private mini cloud with Nextcloud — secure file storage and sharing, user management and encrypted remote access."
+    },
+    proj_tor_name: { fr: 'Serveur web anonymisé via réseau Tor', en: 'Anonymised Web Server via Tor Network' },
+    proj_tor_desc: {
+      fr: "Mise en place d'un reverse proxy simplifié via le réseau Tor — anonymisation du trafic, exposition de services internes sans IP publique et contournement de la censure réseau.",
+      en: "Simplified reverse proxy deployment via the Tor network — traffic anonymisation, internal service exposure without a public IP and network censorship bypass."
     },
 
     /* Compétences */
