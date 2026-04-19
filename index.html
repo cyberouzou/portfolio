@@ -52,7 +52,7 @@
        Affiché dans : l'onglet du navigateur, les favoris,
        les résultats Google (balise <title> = titre SEO principal).
        Format recommandé : "Nom de la page — Nom du site". -->
-  <title>ALEM.SYS — Aksil Alem</title>
+  <title>Portfolio d'Aksil Alem</title>
 
   <!-- PRÉ-CONNEXION AUX SERVEURS GOOGLE FONTS ──────────────────────
        rel="preconnect" effectue la poignée de main DNS + TCP + TLS
@@ -886,7 +886,7 @@
 
      .hero-terminal-bar → barre de fenêtre de terminal fictive :
        3 points colorés (rouge, ambre, vert) comme macOS Terminal
-       + titre "ALEM.SYS — bash — 120×40".
+       + titre "Portfolio d'Aksil — bash — 120×40".
        animation heroFadeIn : apparaît en glissant vers le bas depuis
        au-dessus. Délais croissants (0.1s → 0.65s) pour effet cascade.
 
@@ -1839,7 +1839,7 @@
     <!-- Logo / identité du portfolio -->
     <div class="sidebar-logo">
       <!-- Étiquette système décorative -->
-      <div class="sys-label">SYS_ID // 2026</div>
+      <div class="sys-label">PORTFOLIO // 2026</div>
       <!-- Nom complet (toujours visible, pas traduit) -->
       <div class="name">Aksil ALEM</div>
       <!-- Rôle traduit par i18n (data-i18n="hero_subtitle") -->
@@ -1883,7 +1883,7 @@
       <a href="#projects" class="nav-item" data-nav>
         <span class="nav-icon" aria-hidden="true">◇</span>
         <span data-i18n="nav_projects">PROJETS</span>
-        <span class="nav-count">11</span>
+        <span class="nav-count">10</span>
       </a>
 
       <!-- Compétences → #skills -->
@@ -1977,7 +1977,7 @@
         <div class="t-dot red"></div>
         <div class="t-dot amber"></div>
         <div class="t-dot green"></div>
-        <span class="t-title">ALEM.SYS — bash — 120×40</span>
+        <span class="t-title">Portfolio d'Aksil — bash — 120×40</span>
       </div>
 
       <!-- Invite de commande → préfixe "~/portfolio $ " ajouté par CSS ::before -->
@@ -1998,9 +1998,9 @@
       <!-- role="list" + role="listitem" → accessibilité des listes non-<ul> -->
       <div class="hero-stats" role="list">
 
-        <!-- data-target="11" → valeur finale du compteur animé -->
+        <!-- data-target="10" → valeur finale du compteur animé -->
         <div class="h-stat" role="listitem">
-          <span class="n" data-target="11" aria-label="11 projets">0</span>
+          <span class="n" data-target="10" aria-label="10 projets">0</span>
           <span class="l" data-i18n="stat_projects">Projets</span>
         </div>
 
@@ -2162,38 +2162,24 @@
       <!-- Grille de projets avec animation en cascade (.reveal-stagger) -->
       <div class="projects-grid reveal-stagger" id="projectsGrid">
 
-        <!-- ── PROJ_03 : LXC── PROJ_03 : LXC sous Proxmox ────────────────────────────
-             Catégorie : reseau
+        <!-- ── PROJ_01 : Orchestrateur Minikube sous Ubuntu ───────────
+             Catégorie : reseau (Administration Réseaux / Virtualisation)
              Accent : bleu
+             Pas de lien externe
         ──────────────────────────────────────────────────────────── -->
         <div class="proj-card accent-blue" data-cat="reseau">
           <span class="proj-idx">./proj_01</span>
-          <div class="proj-name" data-i18n="proj_lxc_name">Conteneurisation LXC sous Proxmox</div>
-          <div class="proj-desc" data-i18n="proj_lxc_desc">Déploiement et gestion de conteneurs LXC (Linux) sous Proxmox VE — isolation des services, gestion des ressources et segmentation réseau d'une infrastructure virtualisée.</div>
+          <div class="proj-name" data-i18n="proj_minikube_name">Orchestrateur Minikube sous Ubuntu</div>
+          <div class="proj-desc" data-i18n="proj_minikube_desc">Mise en place d'un orchestrateur Minikube sous Ubuntu — déploiement d'un cluster Kubernetes local, gestion des pods et services, et automatisation des déploiements conteneurisés.</div>
           <div class="proj-tags">
-            <span class="proj-tag">LXC</span>
-            <span class="proj-tag">Proxmox</span>
-            <span class="proj-tag">Linux</span>
-            <span class="proj-tag">Virtualisation</span>
+            <span class="proj-tag">Minikube</span>
+            <span class="proj-tag">Kubernetes</span>
+            <span class="proj-tag">Ubuntu</span>
+            <span class="proj-tag">Conteneurs</span>
             <span class="proj-tag">Infra</span>
           </div>
         </div>
 
-        <!-- ── PROJ_04 : NTP Spoofing Ettercap ───────────────────────
-             Catégorie : cybersec (Cybersécurité)
-             Accent : rouge (accent-red) — couleur des projets offensifs
-        ──────────────────────────────────────────────────────────── -->
-        <div class="proj-card accent-red" data-cat="cybersec">
-          <span class="proj-idx">./proj_02</span>
-          <div class="proj-name" data-i18n="proj_ettercap_name">Spoofing de serveur NTP</div>
-          <div class="proj-desc" data-i18n="proj_ettercap_desc">Simulation contrôlée de spoofing NTP avec Ettercap sous Kali Linux — analyse de l'impact sur la synchronisation temporelle des systèmes et exploitation des vecteurs d'attaque man-in-the-middle.</div>
-          <div class="proj-tags">
-            <span class="proj-tag">NTP</span>
-            <span class="proj-tag">Ettercap</span>
-            <span class="proj-tag">Kali</span>
-            <span class="proj-tag">Pentest</span>
-          </div>
-        </div>
 
         <!-- ── PROJ_05 : Naibed CTF ───────────────────────────────────
              Catégorie : cybersec
@@ -2202,7 +2188,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/drive/folders/15esmbh-Kn7v8KQjk9uTjA0uA73sZyxmN?usp=sharing"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_03</span>
+          <span class="proj-idx">./proj_02</span>
           <div class="proj-name">Naibed CTF</div>
           <div class="proj-desc" data-i18n="proj_naibed_desc">Compétition CTF — challenges en sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.</div>
           <div class="proj-tags">
@@ -2220,7 +2206,7 @@
              Pas de lien externe (pas de documentation publique)
         ──────────────────────────────────────────────────────────── -->
         <div class="proj-card" data-cat="cybersec">
-          <span class="proj-idx">./proj_04</span>
+          <span class="proj-idx">./proj_03</span>
           <div class="proj-name" data-i18n="proj_ctf_name">Passe Ton Hack D'abord</div>
           <div class="proj-desc" data-i18n="proj_ctf_desc">Compétition CTF organisée par le gouvernement français — challenges en cryptographie, sécurité web, reverse engineering et exploitation système.</div>
           <div class="proj-tags">
@@ -2239,7 +2225,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1LPYJ7aJZ8EKuXrg2lgKHm2-iE8A__-YJ/view?usp=drive_link"
            class="proj-card accent-blue" target="_blank" rel="noopener" data-cat="reseau">
-          <span class="proj-idx">./proj_05</span>
+          <span class="proj-idx">./proj_04</span>
           <div class="proj-name" data-i18n="proj_ocs_name">Agent OCS Inventory sous Ubuntu</div>
           <div class="proj-desc" data-i18n="proj_ocs_desc">Mise en place d'un agent OCS Inventory NG sous Ubuntu via WSL2 — inventaire automatisé des postes, remontée des informations matérielles et logicielles vers le serveur central.</div>
           <div class="proj-tags">
@@ -2258,7 +2244,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1kc7uqmF62StflPtqCsDlZka1cSjDldo9/view?usp=drive_link"
            class="proj-card accent-amber" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_06</span>
+          <span class="proj-idx">./proj_05</span>
           <div class="proj-name" data-i18n="proj_canary_name">Honeypot OpenCanary</div>
           <div class="proj-desc" data-i18n="proj_canary_desc">Mise en place d'un honeypot OpenCanary sous Debian — détection des intrusions réseau, journalisation des tentatives d'accès et analyse comportementale des attaquants.</div>
           <div class="proj-tags">
@@ -2277,7 +2263,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1IMWPzwvT7od7Smh-RvENNLFjiozQfRO_/view?usp=drive_link"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_07</span>
+          <span class="proj-idx">./proj_06</span>
           <div class="proj-name" data-i18n="proj_veille_name">Veille — Fuites de données</div>
           <div class="proj-desc" data-i18n="proj_veille_desc">Veille technologique sur la surveillance des fuites de données sur Internet et le dark web — méthodologie de suivi des compromissions, sources OSINT et outils de détection d'exposition.</div>
           <div class="proj-tags">
@@ -2288,15 +2274,15 @@
           <span class="proj-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <!-- ── PROJ_10 : Portfolio ALEM.SYS ──────────────────────────
+        <!-- ── PROJ_09 : Portfolio d'Aksil ─────────────────────────
              Catégorie : autres
              Accent : bleu
              Lien : site en production sur alwaysdata
         ──────────────────────────────────────────────────────────── -->
         <a href="https://aksil.alwaysdata.net"
            class="proj-card accent-blue" target="_blank" rel="noopener" data-cat="autres">
-          <span class="proj-idx">./proj_08</span>
-          <div class="proj-name">ALEM.SYS Portfolio</div>
+          <span class="proj-idx">./proj_07</span>
+          <div class="proj-name" data-i18n="proj_portfolio_name">Portfolio d'Aksil</div>
           <div class="proj-desc" data-i18n="proj_portfolio_desc">Site portfolio personnel — design hacker terminal en HTML/CSS/JS vanille, bilingue FR/EN, avec effets glitch, cursor custom et animations.</div>
           <div class="proj-tags">
             <span class="proj-tag">HTML</span>
@@ -2313,7 +2299,7 @@
         ──────────────────────────────────────────────────────────── -->
         <a href="https://cyberouzou.github.io/ultimaxsearch/"
            class="proj-card" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_09</span>
+          <span class="proj-idx">./proj_08</span>
           <div class="proj-name">Ultimax Search</div>
           <div class="proj-desc" data-i18n="proj_ultimax_desc">Moteur de veille sur les compromissions d'adresses mail et IP — outil OSINT de sécurité pour l'investigation cybersécurité et la détection de fuites de données.</div>
           <div class="proj-tags">
@@ -2326,26 +2312,31 @@
           <span class="proj-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <!-- ── PROJ_12 : Mini cloud privé Nextcloud ──────────────────
-             Catégorie : reseau | Accent : bleu
+        <!-- ── PROJ_09 : Exploitation SQL Injection ─────────────────
+             Catégorie : cybersec (Cybersécurité)
+             Accent : rouge — projet offensif / pentest web
+             Lien : rapport Google Drive
         ──────────────────────────────────────────────────────────── -->
-        <div class="proj-card accent-blue" data-cat="reseau">
-          <span class="proj-idx">./proj_10</span>
-          <div class="proj-name" data-i18n="proj_nextcloud_name">Mini cloud privé avec Nextcloud</div>
-          <div class="proj-desc" data-i18n="proj_nextcloud_desc">Création d'un mini cloud privé auto-hébergé avec Nextcloud — stockage et partage de fichiers sécurisé, gestion des utilisateurs et accès distant chiffré.</div>
+        <a href="https://drive.google.com/file/d/1l4ALcDgR759H-saPPq_ZzbYW2XI3Zd1o/view?usp=drive_link"
+           class="proj-card accent-red" target="_blank" rel="noopener" data-cat="cybersec">
+          <span class="proj-idx">./proj_09</span>
+          <div class="proj-name" data-i18n="proj_sqli_name">Exploitation de vulnérabilités — Injection SQL</div>
+          <div class="proj-desc" data-i18n="proj_sqli_desc">Exploitation de vulnérabilités par injection SQL dans un environnement contrôlé — identification des points d'entrée, extraction de données et contournement d'authentification.</div>
           <div class="proj-tags">
-            <span class="proj-tag">Nextcloud</span>
-            <span class="proj-tag">Cloud</span>
-            <span class="proj-tag">Infra</span>
+            <span class="proj-tag">SQLi</span>
+            <span class="proj-tag">OWASP</span>
+            <span class="proj-tag">Pentest</span>
+            <span class="proj-tag">Web Sec</span>
           </div>
-        </div>
+          <span class="proj-arrow" aria-hidden="true">↗</span>
+        </a>
 
         <!-- ── PROJ_13 : Reverse Proxy via réseau Tor ────────────────
              Catégorie : cybersec | Accent : ambre
         ──────────────────────────────────────────────────────────── -->
         <a href="https://drive.google.com/file/d/1YsxyDqjxnUr07fQxOSpISvpuwOWh5Wsq/view"
            class="proj-card accent-amber" target="_blank" rel="noopener" data-cat="cybersec">
-          <span class="proj-idx">./proj_11</span>
+          <span class="proj-idx">./proj_10</span>
           <div class="proj-name" data-i18n="proj_tor_name">Serveur web anonymisé via réseau Tor</div>
           <div class="proj-desc" data-i18n="proj_tor_desc">Mise en place d'un reverse proxy simplifié via le réseau Tor — anonymisation du trafic, exposition de services internes sans IP publique et contournement de la censure réseau.</div>
           <div class="proj-tags">
@@ -2425,20 +2416,18 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 1 — INFRASTRUCTURE RÉSEAUX & SÉCURITÉ
                ══════════════════════════════════════════════════════
-               Actif par défaut.
-               8 groupes thématiques correspondant exactement
-               aux compétences déclarées dans le CV :
-                 1. Protocoles       → TCP/IP
-                 2. Architecture     → LAN, WAN, VLAN
-                 3. Routage          → statique + dynamique
-                 4. Services réseau  → DHCP, DNS, ICMP, NAT
-                 5. Équipements      → Switches & Routeurs
-                 6. Accès sécurisé   → VPN, Proxy, Pare-feu
-                 7. Microsoft        → AD, GPO/GPP
-                 8. Outils analyse   → Wireshark, Packet Tracer, Docker
+               Compétences issues du CV + projets actuels :
+                 Minikube   → Kubernetes, Ubuntu, conteneurs
+                 OCS        → WSL2, Ubuntu, inventaire
+                 OpenCanary → Debian, IDS, Blue Team, Honeypot
+                 Tor        → Proxy, anonymat, réseau
+                 Veille     → OSINT, Dark Web
+                 CTF        → Forensics, Rev, Web Sec
+                 SQLi       → Pentest, OWASP
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel active" id="s-net" role="tabpanel">
 
+            <!-- Protocoles fondamentaux (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Protocoles</div>
               <div class="skill-tags">
@@ -2446,6 +2435,7 @@
               </div>
             </div>
 
+            <!-- Architecture réseau (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Architecture réseau</div>
               <div class="skill-tags">
@@ -2455,6 +2445,7 @@
               </div>
             </div>
 
+            <!-- Routage (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Routage</div>
               <div class="skill-tags">
@@ -2463,6 +2454,7 @@
               </div>
             </div>
 
+            <!-- Services réseau (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Services &amp; protocoles réseau</div>
               <div class="skill-tags">
@@ -2473,6 +2465,7 @@
               </div>
             </div>
 
+            <!-- Équipements (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Équipements &amp; configuration</div>
               <div class="skill-tags">
@@ -2480,15 +2473,20 @@
               </div>
             </div>
 
+            <!-- Accès sécurisé : CV + proj Tor (Proxy) -->
             <div class="skill-group">
               <div class="skill-group-label">Accès sécurisé</div>
               <div class="skill-tags">
                 <span class="skill-tag m">VPN</span>
                 <span class="skill-tag m">Proxy</span>
+                <!-- Pare-feu : CV + présent dans OpenCanary (défense) -->
                 <span class="skill-tag m">Pare-feu</span>
+                <!-- Tor : proj_10 Serveur web anonymisé via réseau Tor -->
+                <span class="skill-tag m">Tor</span>
               </div>
             </div>
 
+            <!-- Environnement Microsoft (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Environnement Microsoft</div>
               <div class="skill-tags">
@@ -2497,11 +2495,29 @@
               </div>
             </div>
 
+            <!-- Détection & défense réseau : proj_05 OpenCanary, proj_06 Veille -->
+            <div class="skill-group">
+              <div class="skill-group-label">Détection &amp; défense</div>
+              <div class="skill-tags">
+                <!-- proj_05 : Honeypot OpenCanary sous Debian -->
+                <span class="skill-tag y">Honeypot</span>
+                <span class="skill-tag y">IDS</span>
+                <!-- proj_06 : Veille fuites données, OSINT Dark Web -->
+                <span class="skill-tag y">OSINT</span>
+                <span class="skill-tag y">Dark Web</span>
+              </div>
+            </div>
+
+            <!-- Outils d'analyse, simulation, environnements : CV + projets -->
             <div class="skill-group">
               <div class="skill-group-label">Analyse, simulation &amp; environnements</div>
               <div class="skill-tags">
+                <!-- CV -->
                 <span class="skill-tag y">Wireshark</span>
                 <span class="skill-tag y">Cisco Packet Tracer</span>
+                <!-- proj_04 OCS Inventory : agent sous Ubuntu via WSL2 -->
+                <span class="skill-tag y">OCS Inventory NG</span>
+                <!-- Docker : présent via Minikube/Kubernetes (runtime conteneurs) -->
                 <span class="skill-tag y">Docker</span>
               </div>
             </div>
@@ -2511,18 +2527,14 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 2 — VIRTUALISATION & ENVIRONNEMENTS
                ══════════════════════════════════════════════════════
-               4 groupes :
-                 1. Création & gestion de VM
-                    → Déploiement, configuration, administration
-                 2. Outils
-                    → VMware Workstation, Oracle VirtualBox, Proxmox VE
-                 3. Systèmes virtualisés
-                    → Linux (Ubuntu, Debian, Kali), Windows
-                 4. Réseau virtualisé
-                    → Configuration NAT, Bridge, VLAN
+               Compétences issues du CV + projets actuels :
+                 Minikube   → Kubernetes, Minikube, cluster local
+                 OCS        → WSL2, Ubuntu
+                 Général    → VMware, VirtualBox, Proxmox
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-virt" role="tabpanel">
 
+            <!-- Création et gestion de machines virtuelles (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Création &amp; gestion de machines virtuelles</div>
               <div class="skill-tags">
@@ -2532,6 +2544,7 @@
               </div>
             </div>
 
+            <!-- Hyperviseurs : CV -->
             <div class="skill-group">
               <div class="skill-group-label">Outils</div>
               <div class="skill-tags">
@@ -2541,16 +2554,29 @@
               </div>
             </div>
 
+            <!-- Orchestration : proj_01 Minikube sous Ubuntu -->
+            <div class="skill-group">
+              <div class="skill-group-label">Orchestration &amp; conteneurs</div>
+              <div class="skill-tags">
+                <!-- proj_01 : Minikube = distribution Kubernetes locale -->
+                <span class="skill-tag m">Kubernetes</span>
+                <span class="skill-tag m">Minikube</span>
+                <!-- WSL2 : proj_04 OCS Inventory sous Ubuntu via WSL2 -->
+                <span class="skill-tag m">WSL2</span>
+              </div>
+            </div>
+
+            <!-- Systèmes d'exploitation virtualisés (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Systèmes virtualisés</div>
               <div class="skill-tags">
-                <!-- Linux englobe Ubuntu, Debian et Kali Linux -->
+                <!-- Couvre Ubuntu (proj_01, proj_04), Debian (proj_05), Kali (pentest) -->
                 <span class="skill-tag m">Linux (Ubuntu, Debian, Kali)</span>
-                <!-- Windows englobe Windows Server et Windows 10/11 -->
                 <span class="skill-tag m">Windows</span>
               </div>
             </div>
 
+            <!-- Réseau virtualisé (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Réseau virtualisé</div>
               <div class="skill-tags">
@@ -2565,24 +2591,29 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 3 — PROGRAMMATION
                ══════════════════════════════════════════════════════
-               5 groupes :
-                 1. Web       → HTML, CSS, JavaScript
-                 2. Backend   → PHP
-                 3. BDD       → SQL, Cypher (Neo4j)
-                 4. Scripting → Shell, Bash, Batch, Python
-                 5. Comp.     → C++
+               Compétences issues du CV + projets actuels :
+                 Portfolio  → HTML, CSS, JavaScript
+                 Ultimax    → JavaScript, API REST
+                 SQLi       → SQL, injection, OWASP
+                 Tor/Shell  → Bash, scripting
+                 Veille     → Python (analyse, scripts)
+                 CTF        → Python, scripting, reverse
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-prog" role="tabpanel">
 
+            <!-- Web front-end : proj_07 Portfolio, proj_08 Ultimax Search -->
             <div class="skill-group">
               <div class="skill-group-label">Web</div>
               <div class="skill-tags">
+                <!-- proj_07 Portfolio d'Aksil : HTML/CSS/JS vanille -->
                 <span class="skill-tag">HTML</span>
                 <span class="skill-tag">CSS</span>
+                <!-- proj_07 + proj_08 Ultimax Search (JS natif + API) -->
                 <span class="skill-tag">JavaScript</span>
               </div>
             </div>
 
+            <!-- Backend : CV -->
             <div class="skill-group">
               <div class="skill-group-label">Backend</div>
               <div class="skill-tags">
@@ -2590,25 +2621,41 @@
               </div>
             </div>
 
+            <!-- Bases de données : proj_09 SQLi + CV Cypher -->
             <div class="skill-group">
               <div class="skill-group-label">Bases de données</div>
               <div class="skill-tags">
+                <!-- proj_09 : exploitation SQL Injection → maîtrise SQL -->
                 <span class="skill-tag m">SQL</span>
-                <!-- Cypher : langage de requête des bases de données graphes Neo4j -->
                 <span class="skill-tag m">Cypher (Neo4j)</span>
               </div>
             </div>
 
+            <!-- Scripting : CV + tous les projets CLI (Tor, OCS, CTF, Minikube) -->
             <div class="skill-group">
               <div class="skill-group-label">Scripting &amp; Automatisation</div>
               <div class="skill-tags">
                 <span class="skill-tag y">Shell</span>
                 <span class="skill-tag y">Bash</span>
                 <span class="skill-tag y">Batch</span>
+                <!-- Python : utilisé dans CTF, analyse veille, scripts réseau -->
                 <span class="skill-tag y">Python</span>
               </div>
             </div>
 
+            <!-- Sécurité applicative : proj_08 Ultimax (API) + proj_09 SQLi -->
+            <div class="skill-group">
+              <div class="skill-group-label">Sécurité applicative</div>
+              <div class="skill-tags">
+                <!-- proj_09 : injection SQL, contournement auth, OWASP Top 10 -->
+                <span class="skill-tag p">SQLi</span>
+                <span class="skill-tag p">OWASP</span>
+                <!-- proj_08 : consommation d'APIs publiques (HaveIBeenPwned, etc.) -->
+                <span class="skill-tag p">API REST</span>
+              </div>
+            </div>
+
+            <!-- Langages complémentaires : CV -->
             <div class="skill-group">
               <div class="skill-group-label">Langages complémentaires</div>
               <div class="skill-tags">
@@ -3007,7 +3054,7 @@
 
       <!-- Copyright + nom du site -->
       <div class="footer-left">
-        &copy; 2026 <span class="green">ALEM.SYS</span> — Aksil Alem
+        &copy; 2026 <span class="green">Portfolio d'Aksil</span> — Aksil Alem
       </div>
 
       <!-- Liens rapides de navigation -->
@@ -3471,15 +3518,10 @@
     filter_autres:   { fr: 'Autres',                  en: 'Others' },
 
     /* Descriptions des projets */
-    proj_lxc_name: { fr: 'Conteneurisation LXC sous Proxmox', en: 'LXC Containers on Proxmox' },
-    proj_lxc_desc: {
-      fr: "Déploiement et gestion de conteneurs LXC (Linux) sous Proxmox VE — isolation des services, gestion des ressources et segmentation réseau d'une infrastructure virtualisée.",
-      en: "LXC container deployment and management on Proxmox VE — service isolation, resource management and network segmentation of a virtualised infrastructure."
-    },
-    proj_ettercap_name: { fr: 'Spoofing de serveur NTP', en: 'NTP Server Spoofing' },
-    proj_ettercap_desc: {
-      fr: "Simulation contrôlée de spoofing NTP avec Ettercap sous Kali Linux — analyse de l'impact sur la synchronisation temporelle des systèmes et exploitation des vecteurs d'attaque man-in-the-middle.",
-      en: "Controlled NTP spoofing simulation with Ettercap on Kali Linux — impact analysis on system time synchronisation and man-in-the-middle attack vector exploitation."
+    proj_minikube_name: { fr: 'Orchestrateur Minikube sous Ubuntu', en: 'Minikube Orchestrator on Ubuntu' },
+    proj_minikube_desc: {
+      fr: "Mise en place d'un orchestrateur Minikube sous Ubuntu — déploiement d'un cluster Kubernetes local, gestion des pods et services, et automatisation des déploiements conteneurisés.",
+      en: "Minikube orchestrator setup on Ubuntu — local Kubernetes cluster deployment, pod and service management, and containerised deployment automation."
     },
     proj_naibed_desc: {
       fr: "Compétition CTF — challenges en sécurité web, reverse engineering, stéganographie et exploitation système en environnement d'équipe.",
@@ -3505,6 +3547,7 @@
       fr: "Veille technologique sur la surveillance des fuites de données sur Internet et le dark web — méthodologie de suivi des compromissions, sources OSINT et outils de détection d'exposition.",
       en: "Technology watch on data leak monitoring across the internet and dark web — compromise tracking methodology, OSINT sources and exposure detection tools."
     },
+    proj_portfolio_name: { fr: "Portfolio d'Aksil", en: "Aksil's Portfolio" },
     proj_portfolio_desc: {
       fr: "Site portfolio personnel — design hacker terminal en HTML/CSS/JS vanille, bilingue FR/EN, avec effets glitch, cursor custom et animations.",
       en: "Personal portfolio website — hacker terminal design in vanilla HTML/CSS/JS, bilingual FR/EN with glitch effects, custom cursor and animations."
@@ -3514,10 +3557,10 @@
       en: "Mail address and IP compromise watch engine — OSINT security tool for cybersecurity investigation and data leak detection."
     },
 
-    proj_nextcloud_name: { fr: 'Mini cloud privé avec Nextcloud', en: 'Private Mini Cloud with Nextcloud' },
-    proj_nextcloud_desc: {
-      fr: "Création d'un mini cloud privé auto-hébergé avec Nextcloud — stockage et partage de fichiers sécurisé, gestion des utilisateurs et accès distant chiffré.",
-      en: "Creation of a self-hosted private mini cloud with Nextcloud — secure file storage and sharing, user management and encrypted remote access."
+    proj_sqli_name: { fr: 'Exploitation de vulnérabilités — Injection SQL', en: 'Vulnerability Exploitation — SQL Injection' },
+    proj_sqli_desc: {
+      fr: "Exploitation de vulnérabilités par injection SQL dans un environnement contrôlé — identification des points d'entrée, extraction de données et contournement d'authentification.",
+      en: "SQL injection vulnerability exploitation in a controlled environment — entry point identification, data extraction and authentication bypass."
     },
     proj_tor_name: { fr: 'Serveur web anonymisé via réseau Tor', en: 'Anonymised Web Server via Tor Network' },
     proj_tor_desc: {
