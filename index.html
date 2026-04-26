@@ -2312,23 +2312,25 @@
           <span class="proj-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <!-- ── PROJ_09 : Stack Docker GLPI / WAPT / Portainer ─────────
-             Catégorie : reseau (Administration Réseaux / Infra)
-             Accent : bleu — infrastructure conteneurisée
-             Pas de lien externe
+        <!-- ── PROJ_09 : Réseau d'entreprise sécurisé PME — Cisco ─────
+             Catégorie : reseau (Administration Réseaux & Sécurité)
+             Accent : bleu — simulation Cisco Packet Tracer multi-VLAN
+             Lien : Google Drive (fichier .pkt / rapport)
         ──────────────────────────────────────────────────────────── -->
-        <div class="proj-card accent-blue" data-cat="reseau">
+        <a href="https://drive.google.com/file/d/1xmAChhXQfcy63BzUCFyTC8AX9kWKvwBu/view?usp=sharing"
+           class="proj-card accent-blue" target="_blank" rel="noopener" data-cat="reseau">
           <span class="proj-idx">./proj_09</span>
-          <div class="proj-name" data-i18n="proj_docker_stack_name">Stack Docker de gestion IT et supervision réseau</div>
-          <div class="proj-desc" data-i18n="proj_docker_stack_desc">Déploiement de services conteneurisés via Docker : GLPI (gestion de parc), WAPT (déploiement logiciel), supervision réseau et administration centralisée via Portainer.</div>
+          <div class="proj-name" data-i18n="proj_pme_name">Réseau d'entreprise sécurisé (PME) — Cisco</div>
+          <div class="proj-desc" data-i18n="proj_pme_desc">Conception d'un réseau PME sous Cisco Packet Tracer — segmentation VLAN par service (RH, IT, Direction), routage inter-VLAN, ACL, pare-feu périmétrique et accès Internet simulé.</div>
           <div class="proj-tags">
-            <span class="proj-tag">Docker</span>
-            <span class="proj-tag">GLPI</span>
-            <span class="proj-tag">WAPT</span>
-            <span class="proj-tag">Portainer</span>
-            <span class="proj-tag">Infra</span>
+            <span class="proj-tag">Cisco</span>
+            <span class="proj-tag">Packet Tracer</span>
+            <span class="proj-tag">VLAN</span>
+            <span class="proj-tag">ACL</span>
+            <span class="proj-tag">Routage inter-VLAN</span>
           </div>
-        </div>
+          <span class="proj-arrow" aria-hidden="true">↗</span>
+        </a>
 
         <!-- ── PROJ_13 : Reverse Proxy via réseau Tor ────────────────
              Catégorie : cybersec | Accent : ambre
@@ -2415,45 +2417,55 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 1 — INFRASTRUCTURE RÉSEAUX & SÉCURITÉ
                ══════════════════════════════════════════════════════
-               Compétences issues du CV + tous les projets actuels :
-                 Minikube       → réseau Kubernetes, Ingress, services
-                 OCS Inventory  → admin Linux, gestion parc, systemd
-                 OpenCanary     → honeypot, IDS, hardening, logs
-                 Tor            → anonymisation, overlay network, opsec
-                 Veille/Ultimax → OSINT, Threat Intel, IOC, Dark Web
-                 CTF            → pentest, forensics, escalade privileges
-                 Docker Stack   → conteneurisation, supervision, GLPI
+               Croisement projets → compétences :
+               proj_09 Cisco PME  → VLAN, ACL, Routage inter-VLAN, DMZ,
+                                    Pare-feu, Packet Tracer, Troubleshooting
+               proj_04 OCS Debian → Admin Linux, gestion parc, systemd
+               proj_05 OpenCanary → Honeypot, IDS, hardening, logs, alerting
+               proj_06 Veille     → OSINT, Threat Intel, IOC, Dark Web
+               proj_08 Ultimax    → APIs, OSINT, data leak
+               proj_10 Tor        → Proxy, anonymisation, opsec
+               proj_01 Minikube   → Overlay network (réseau Kubernetes)
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel active" id="s-net" role="tabpanel">
 
-            <!-- ── Protocoles & architecture (CV) ── -->
+            <!-- Protocoles de base (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Protocoles</div>
               <div class="skill-tags">
                 <span class="skill-tag">TCP/IP</span>
-                <!-- Modèle OSI : base de toute analyse réseau (CV + CTF + OpenCanary) -->
+                <!-- Indispensable pour le projet PME Cisco et les CTF -->
                 <span class="skill-tag">Modèle OSI</span>
               </div>
             </div>
 
+            <!-- Architecture réseau : enrichie par proj_09 Cisco PME -->
             <div class="skill-group">
               <div class="skill-group-label">Architecture réseau</div>
               <div class="skill-tags">
                 <span class="skill-tag">LAN</span>
                 <span class="skill-tag">WAN</span>
+                <!-- proj_09 : 3 VLAN distincts (RH, IT, Direction) -->
                 <span class="skill-tag">VLAN</span>
-                <!-- ACL : filtrage et contrôle d'accès (CV + Docker Stack) -->
+                <!-- proj_09 : ACL pour filtrer le trafic entre services -->
                 <span class="skill-tag">ACL</span>
+                <!-- proj_09 : DMZ pour isoler l'accès Internet simulé -->
+                <span class="skill-tag">DMZ</span>
+                <!-- proj_09 : routage entre les VLAN via switch L3 Cisco -->
+                <span class="skill-tag">Routage inter-VLAN</span>
               </div>
             </div>
 
+            <!-- Routage & switching : CV + proj_09 + proj_01 -->
             <div class="skill-group">
               <div class="skill-group-label">Routage &amp; switching</div>
               <div class="skill-tags">
                 <span class="skill-tag">Routage statique</span>
                 <span class="skill-tag">Routage dynamique</span>
-                <!-- Minikube : overlay network = réseau virtuel entre pods Kubernetes -->
+                <!-- proj_01 Minikube WSL : réseau overlay entre pods Kubernetes -->
                 <span class="skill-tag">Overlay network</span>
+                <!-- proj_09 : diagnostics de connectivité entre services PME -->
+                <span class="skill-tag">Troubleshooting réseau</span>
               </div>
             </div>
 
@@ -2467,30 +2479,35 @@
               </div>
             </div>
 
+            <!-- Équipements Cisco : proj_09 simulation Packet Tracer -->
             <div class="skill-group">
-              <div class="skill-group-label">Équipements &amp; configuration</div>
+              <div class="skill-group-label">Équipements &amp; simulation Cisco</div>
               <div class="skill-tags">
-                <span class="skill-tag y">Switches &amp; Routeurs</span>
-                <span class="skill-tag y">Troubleshooting réseau</span>
+                <!-- proj_09 : config de routeurs et switches Cisco dans Packet Tracer -->
+                <span class="skill-tag y">Switches &amp; Routeurs Cisco</span>
+                <!-- proj_09 : conception et test du réseau PME complet en simulation -->
+                <span class="skill-tag y">Cisco Packet Tracer</span>
+                <span class="skill-tag y">Wireshark</span>
               </div>
             </div>
 
-            <!-- ── Accès sécurisé : CV + proj Tor + proj Docker Stack ── -->
+            <!-- Sécurité réseau : CV + proj_09 + proj_10 Tor -->
             <div class="skill-group">
-              <div class="skill-group-label">Accès sécurisé</div>
+              <div class="skill-group-label">Sécurité réseau</div>
               <div class="skill-tags">
                 <span class="skill-tag m">VPN</span>
                 <span class="skill-tag m">Proxy</span>
+                <!-- proj_09 : pare-feu périmétrique avec règles entre VLAN -->
                 <span class="skill-tag m">Pare-feu</span>
-                <!-- proj_10 Tor : anonymisation, déploiement service web sécurisé -->
-                <span class="skill-tag m">Tor</span>
-                <!-- proj_10 : gestion des accès et notion d'opsec -->
+                <!-- proj_10 : anonymisation du trafic via réseau Tor -->
+                <span class="skill-tag m">Réseau Tor</span>
+                <!-- proj_10 : gestion des accès et operational security -->
                 <span class="skill-tag m">Gestion des accès</span>
                 <span class="skill-tag m">Opsec</span>
               </div>
             </div>
 
-            <!-- ── Environnement Microsoft (CV) ── -->
+            <!-- Environnement Microsoft (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Environnement Microsoft</div>
               <div class="skill-tags">
@@ -2499,67 +2516,63 @@
               </div>
             </div>
 
-            <!-- ── Administration système Linux : proj_04 OCS + proj_05 OpenCanary ── -->
+            <!-- Administration Linux : proj_04 OCS Inventory sous Debian -->
             <div class="skill-group">
               <div class="skill-group-label">Administration système Linux</div>
               <div class="skill-tags">
-                <!-- proj_04 OCS Inventory sur Debian : admin système, gestion services -->
+                <!-- proj_04 : gestion de parc avec OCS Inventory NG sur Debian -->
                 <span class="skill-tag y">Gestion de parc informatique</span>
                 <span class="skill-tag y">Déploiement d'agents</span>
                 <span class="skill-tag y">Inventaire matériel / logiciel</span>
+                <!-- proj_04 : activation et supervision des services OCS via systemd -->
                 <span class="skill-tag y">Gestion de services (systemd)</span>
-                <!-- proj_05 OpenCanary : hardening Debian, exposition contrôlée des ports -->
+                <!-- proj_05 : réduction de la surface d'attaque sur Debian -->
                 <span class="skill-tag y">Hardening système Linux</span>
                 <span class="skill-tag y">Gestion des ports</span>
               </div>
             </div>
 
-            <!-- ── Honeypot & détection : proj_05 OpenCanary ── -->
+            <!-- Honeypot & IDS : proj_05 OpenCanary sous Debian -->
             <div class="skill-group">
               <div class="skill-group-label">Honeypot &amp; détection d'intrusions</div>
               <div class="skill-tags">
-                <!-- proj_05 : déploiement OpenCanary avec services factices -->
+                <!-- proj_05 : déploiement d'OpenCanary sur Debian -->
                 <span class="skill-tag y">Déploiement de honeypot</span>
+                <!-- proj_05 : services SSH, FTP, HTTP factices pour piéger les attaquants -->
                 <span class="skill-tag y">Services factices (SSH, FTP, HTTP)</span>
+                <!-- proj_05 : lecture et corrélation des logs générés par OpenCanary -->
                 <span class="skill-tag y">Analyse de logs d'attaques</span>
-                <span class="skill-tag y">Détection d'intrusions</span>
-                <!-- proj_05 + Docker Stack : supervision et alerting -->
+                <span class="skill-tag y">Détection d'intrusions (IDS)</span>
+                <!-- proj_05 : notifications d'alertes sur activités suspectes -->
                 <span class="skill-tag y">Supervision &amp; alerting</span>
               </div>
             </div>
 
-            <!-- ── OSINT & Threat Intelligence : proj_06 Veille + proj_08 Ultimax ── -->
+            <!-- OSINT & Threat Intelligence : proj_06 Veille + proj_08 Ultimax -->
             <div class="skill-group">
               <div class="skill-group-label">OSINT &amp; Threat Intelligence</div>
               <div class="skill-tags">
-                <!-- proj_06 + proj_08 : collecte d'informations open source -->
+                <!-- proj_06 + proj_08 : recherche d'informations sur sources ouvertes -->
                 <span class="skill-tag p">OSINT</span>
-                <!-- proj_06 : collecte et corrélation de données de compromission -->
+                <!-- proj_06 : collecte et corrélation d'indicateurs de compromission -->
                 <span class="skill-tag p">Threat Intelligence</span>
-                <!-- proj_06 : indicateurs de compromission (hachés, IP, domaines) -->
                 <span class="skill-tag p">Analyse d'IOC</span>
-                <!-- proj_06 : surveillance des forums et marketplaces du dark web -->
+                <!-- proj_06 : surveillance de forums, chans et marketplaces dark web -->
                 <span class="skill-tag p">Surveillance du dark web</span>
-                <!-- proj_06 : analyse des fuites et exposition de données -->
                 <span class="skill-tag p">Analyse de fuites de données</span>
-                <!-- proj_06 : synthèse et communication des résultats de veille -->
+                <!-- proj_06 : synthèse opérationnelle et rédaction de rapports -->
                 <span class="skill-tag p">Veille stratégique cyber</span>
                 <span class="skill-tag p">Rédaction de rapports de sécurité</span>
               </div>
             </div>
 
-            <!-- ── Outils analyse, simulation, environnements ── -->
+            <!-- Outils d'analyse & supervision -->
             <div class="skill-group">
-              <div class="skill-group-label">Analyse, simulation &amp; environnements</div>
+              <div class="skill-group-label">Outils d'analyse &amp; supervision</div>
               <div class="skill-tags">
-                <span class="skill-tag y">Wireshark</span>
-                <span class="skill-tag y">Cisco Packet Tracer</span>
-                <!-- proj_04 OCS Inventory NG sous Debian -->
+                <!-- proj_04 OCS Inventory NG pour inventaire Debian -->
                 <span class="skill-tag y">OCS Inventory NG</span>
-                <!-- proj_09 Docker Stack : GLPI + WAPT + Portainer -->
-                <span class="skill-tag y">GLPI</span>
-                <span class="skill-tag y">WAPT</span>
-                <span class="skill-tag y">Portainer</span>
+                <!-- proj_01 : Docker est le runtime de conteneurs Minikube -->
                 <span class="skill-tag y">Docker</span>
               </div>
             </div>
@@ -2569,14 +2582,13 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 2 — VIRTUALISATION & ENVIRONNEMENTS
                ══════════════════════════════════════════════════════
-               Compétences issues du CV + projets :
-                 Minikube       → Kubernetes, pods, services, ingress
-                 Docker Stack   → Docker Compose, Portainer, conteneurs
-                 OCS Inventory  → Debian, WSL2
+               proj_01 Minikube WSL  → Kubernetes, cluster local, WSL2
+               proj_04 OCS Debian    → Debian, gestion services
+               proj_05 OpenCanary    → Debian, isolation services
+               CV                    → VMware, VirtualBox, Proxmox
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-virt" role="tabpanel">
 
-            <!-- Création et gestion de machines virtuelles (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Création &amp; gestion de machines virtuelles</div>
               <div class="skill-tags">
@@ -2586,9 +2598,8 @@
               </div>
             </div>
 
-            <!-- Hyperviseurs (CV) -->
             <div class="skill-group">
-              <div class="skill-group-label">Outils</div>
+              <div class="skill-group-label">Hyperviseurs</div>
               <div class="skill-tags">
                 <span class="skill-tag">VMware Workstation</span>
                 <span class="skill-tag">Oracle VirtualBox</span>
@@ -2596,37 +2607,37 @@
               </div>
             </div>
 
-            <!-- Conteneurisation & orchestration : proj_01 Minikube + proj_09 Docker Stack -->
+            <!-- proj_01 Minikube WSL : Kubernetes via WSL2 sur Windows -->
             <div class="skill-group">
               <div class="skill-group-label">Conteneurisation &amp; orchestration</div>
               <div class="skill-tags">
-                <!-- proj_09 Docker Stack : déploiement GLPI, WAPT, Portainer -->
+                <!-- Docker est le container runtime utilisé par Minikube -->
                 <span class="skill-tag m">Conteneurisation (Docker)</span>
-                <!-- proj_01 Minikube : Kubernetes local, pods, services -->
+                <!-- proj_01 : Kubernetes = orchestrateur de conteneurs (cluster local) -->
                 <span class="skill-tag m">Kubernetes</span>
+                <!-- proj_01 : Minikube = distribution Kubernetes légère dev/test -->
                 <span class="skill-tag m">Minikube</span>
-                <!-- proj_01 : déploiement d'applications en pods -->
+                <!-- proj_01 : gestion du cycle de vie des pods et services K8s -->
                 <span class="skill-tag m">Déploiement de pods &amp; services</span>
-                <!-- proj_01 : réseau interne Kubernetes -->
+                <!-- proj_01 : exposition de services via Ingress Controller -->
                 <span class="skill-tag m">Réseau Kubernetes (Ingress)</span>
-                <!-- proj_01 : notions d'infrastructure as code -->
+                <!-- proj_01 : notions d'infrastructure déclarative YAML/K8s -->
                 <span class="skill-tag m">Infra as Code (bases)</span>
-                <!-- proj_04 OCS : Windows Subsystem for Linux 2 -->
+                <!-- proj_01 : Minikube tourne dans WSL2 (Windows Subsystem for Linux 2) -->
                 <span class="skill-tag m">WSL2</span>
               </div>
             </div>
 
-            <!-- Systèmes d'exploitation virtualisés (CV + projets) -->
             <div class="skill-group">
               <div class="skill-group-label">Systèmes virtualisés</div>
               <div class="skill-tags">
-                <!-- WSL : proj_01 Minikube ; Debian : proj_04 OCS, proj_05 OpenCanary ; Kali : CTF -->
+                <!-- Ubuntu : WSL proj_01 ; Debian : proj_04 OCS + proj_05 OpenCanary ; Kali : CTF -->
                 <span class="skill-tag m">Linux (Ubuntu, Debian, Kali)</span>
+                <!-- Windows Server : CV ; Windows 11 : environnement WSL -->
                 <span class="skill-tag m">Windows</span>
               </div>
             </div>
 
-            <!-- Réseau virtualisé (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Réseau virtualisé</div>
               <div class="skill-tags">
@@ -2641,27 +2652,28 @@
           <!-- ══════════════════════════════════════════════════════
                PANNEAU 3 — PROGRAMMATION
                ══════════════════════════════════════════════════════
-               Compétences issues du CV + projets :
-                 Portfolio  → HTML, CSS, JavaScript
-                 Ultimax    → JavaScript, API REST, parsing JSON
-                 Veille     → Python, parsing CSV/JSON, automatisation
-                 CTF        → Python, reverse engineering, cryptographie,
-                              web security, escalade de privilèges, forensique
-                 Docker/OCS → Bash, Shell, automatisation scripts
+               proj_07 Portfolio  → HTML5, CSS3, JS ES6+ (vanille)
+               proj_08 Ultimax    → JS, fetch API, JSON, HaveIBeenPwned
+               proj_06 Veille     → Python, parsing CSV/JSON, automatisation
+               proj_02/03 CTF     → Python, rev, crypto, web sec,
+                                    escalade de privilèges, forensique
+               proj_04/05 Linux   → Bash, Shell, scripts système
           ══════════════════════════════════════════════════════ -->
           <div class="skills-panel" id="s-prog" role="tabpanel">
 
-            <!-- Web front-end : proj_07 Portfolio d'Aksil + proj_08 Ultimax -->
+            <!-- proj_07 : portfolio en HTML/CSS/JS vanille, proj_08 : fetch API JS -->
             <div class="skill-group">
               <div class="skill-group-label">Web</div>
               <div class="skill-tags">
+                <!-- proj_07 : structure HTML5 sémantique, accessibilité ARIA -->
                 <span class="skill-tag">HTML</span>
+                <!-- proj_07 : CSS avancé (variables, animations, Intersection Observer) -->
                 <span class="skill-tag">CSS</span>
+                <!-- proj_07 : JS ES6+ vanille ; proj_08 : fetch, manipulation DOM -->
                 <span class="skill-tag">JavaScript</span>
               </div>
             </div>
 
-            <!-- Backend (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Backend</div>
               <div class="skill-tags">
@@ -2669,49 +2681,54 @@
               </div>
             </div>
 
-            <!-- Bases de données (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Bases de données</div>
               <div class="skill-tags">
                 <span class="skill-tag m">SQL</span>
+                <!-- Cypher : langage de requête de Neo4j (base orientée graphes) -->
                 <span class="skill-tag m">Cypher (Neo4j)</span>
-                <!-- proj_09 Docker Stack GLPI : remontée d'infos en BDD -->
-                <span class="skill-tag m">Notions BDD (remontée d'infos)</span>
               </div>
             </div>
 
-            <!-- Scripting & Automatisation : CV + tous les projets CLI -->
+            <!-- CV + proj_04 (systemd/bash) + proj_06 (Python/parsing) + proj_08 (API) -->
             <div class="skill-group">
               <div class="skill-group-label">Scripting &amp; Automatisation</div>
               <div class="skill-tags">
+                <!-- Scripts système Linux : proj_04 OCS, proj_05 OpenCanary -->
                 <span class="skill-tag y">Shell</span>
                 <span class="skill-tag y">Bash</span>
                 <span class="skill-tag y">Batch</span>
-                <!-- Python : CTF, veille, scripts réseau, Ultimax/OSINT -->
+                <!-- Python : CTF (rev/crypto), veille OSINT, scripts réseau -->
                 <span class="skill-tag y">Python</span>
-                <!-- proj_06 Veille + proj_08 Ultimax : parsing données -->
+                <!-- proj_06 Veille + proj_08 Ultimax : extraction et parsing de données -->
                 <span class="skill-tag y">Parsing JSON / CSV</span>
-                <!-- proj_06 + proj_08 : consommation APIs (HaveIBeenPwned, etc.) -->
-                <span class="skill-tag y">Utilisation d'APIs</span>
+                <!-- proj_08 : appels HaveIBeenPwned, VirusTotal et autres APIs publiques -->
+                <span class="skill-tag y">Utilisation d'APIs REST</span>
+                <!-- proj_06 + proj_08 : collecte, tri et qualification de données sensibles -->
+                <span class="skill-tag y">Traitement de données</span>
               </div>
             </div>
 
-            <!-- Sécurité offensive : proj_02/03 CTF + proj_08 Ultimax -->
+            <!-- proj_02 Naibed CTF + proj_03 Passe Ton Hack D'abord -->
             <div class="skill-group">
               <div class="skill-group-label">Sécurité offensive (CTF)</div>
               <div class="skill-tags">
-                <!-- proj_02 Naibed CTF + proj_03 Passe Ton Hack D'abord -->
+                <!-- Tests d'intrusion : identification et exploitation de vulnérabilités -->
                 <span class="skill-tag p">Pentest</span>
                 <span class="skill-tag p">Exploitation de vulnérabilités</span>
+                <!-- Analyse de binaires, désassemblage, décompilation -->
                 <span class="skill-tag p">Reverse engineering</span>
+                <!-- Chiffrement, hachage, stéganographie (CTF crypto) -->
                 <span class="skill-tag p">Cryptographie (bases)</span>
+                <!-- Failles côté client et serveur : XSS, injections -->
                 <span class="skill-tag p">Web security (XSS, SQLi)</span>
+                <!-- Élévation de droits Linux/Windows en environnement CTF -->
                 <span class="skill-tag p">Escalade de privilèges</span>
+                <!-- Analyse d'artefacts numériques post-incident -->
                 <span class="skill-tag p">Analyse forensique</span>
               </div>
             </div>
 
-            <!-- Langages complémentaires (CV) -->
             <div class="skill-group">
               <div class="skill-group-label">Langages complémentaires</div>
               <div class="skill-tags">
@@ -3613,10 +3630,10 @@
       en: "Mail address and IP compromise watch engine — OSINT security tool for cybersecurity investigation and data leak detection."
     },
 
-    proj_docker_stack_name: { fr: 'Stack Docker de gestion IT et supervision réseau', en: 'Docker Stack for IT Management and Network Supervision' },
-    proj_docker_stack_desc: {
-      fr: "Déploiement de services conteneurisés via Docker : GLPI (gestion de parc), WAPT (déploiement logiciel), supervision réseau et administration centralisée via Portainer.",
-      en: "Containerised service deployment via Docker: GLPI (asset management), WAPT (software deployment), network supervision and centralised administration via Portainer."
+    proj_pme_name: { fr: "Réseau d'entreprise sécurisé (PME) — Cisco", en: 'Secure SME Corporate Network — Cisco' },
+    proj_pme_desc: {
+      fr: "Conception d'un réseau PME sous Cisco Packet Tracer — segmentation VLAN par service (RH, IT, Direction), routage inter-VLAN, ACL, pare-feu périmétrique et accès Internet simulé.",
+      en: "Design and deployment of a segmented SME corporate network — multiple departments (HR, IT, Management), simulated internet access and baseline security rules with firewall, VLAN and ACL."
     },
     proj_tor_name: { fr: 'Serveur web anonymisé via réseau Tor', en: 'Anonymised Web Server via Tor Network' },
     proj_tor_desc: {
